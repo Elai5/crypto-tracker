@@ -27,7 +27,7 @@ const CoinRow = ({ coin, onClick, darkMode, isSelected }) => {
   return (
     <tr 
       onClick={() => onClick(coin)}
-      className={`cursor-pointer transition-colors hover:bg-opacity-50 ${
+      className={`cursor-pointer transition-colors font-primary hover:bg-opacity-50 ${
         isSelected 
           ? darkMode ? 'bg-blue-900 bg-opacity-30' : 'bg-blue-50'
           : darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-50'

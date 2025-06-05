@@ -14,7 +14,7 @@ const CoinChart = ({
   priceChange = 0
 }) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full font-primary">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           {coinName ? `${coinName} Price Chart` : 'Price Chart'}

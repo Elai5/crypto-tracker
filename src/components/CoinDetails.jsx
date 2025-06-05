@@ -22,7 +22,7 @@ const CoinDetails = ({ coin, darkMode }) => {
 
   if (!coin) {
     return (
-      <div className={`rounded-lg p-8 text-center ${
+      <div className={`rounded-lg font-primary p-8 text-center ${
         darkMode ? 'bg-gray-800 text-gray-400' : 'bg-white text-gray-500'
       }`}>
         <BarChart3 className="w-16 h-16 mx-auto mb-4 opacity-50" />
