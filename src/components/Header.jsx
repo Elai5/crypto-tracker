@@ -23,6 +23,7 @@ const Header = ({ searchTerm, onSearchChange }) => {
               searchTerm={searchTerm}
               onSearchChange={onSearchChange}
               darkMode={true}
+            
             />
           </div>
         </div>
