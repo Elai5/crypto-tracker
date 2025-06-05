@@ -18,7 +18,7 @@ const Header = ({ searchTerm, onSearchChange }) => {
           </div>
           
           {/* Search Bar Section */}
-          <div className="flex-1 max-w-md sm:ml-8">
+          <div className="flex-1 max-w-md  sm:ml-8">
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={onSearchChange}
