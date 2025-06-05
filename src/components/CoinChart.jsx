@@ -16,7 +16,7 @@ const CoinChart = ({
   return (
     <Card className="w-full font-primary">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between">
+        <CardTitle className="flex items-center justify-between text-white">
           {coinName ? `${coinName} Price Chart` : 'Price Chart'}
           {priceChange !== 0 && (
             <div className={`flex items-center text-sm font-medium ${
