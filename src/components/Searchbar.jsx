@@ -105,7 +105,7 @@ const SearchBar = ({ searchTerm, onSearchChange, coins = [] }) => {
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
         <input
           type="text"
-          placeholder="Search coins..."
+          placeholder="Search for coins..."
           value={searchTerm}
           onChange={(e) => handleInputChange(e.target.value)}
           onKeyDown={handleKeyDown}
