@@ -6,7 +6,7 @@ const coinGeckoAPI = {
     'x-cg-demo-api-key': import.meta.env.VITE_COINGECKO_API_KEY
   },
 
-  async fetchTopCoins(currency = 'usd', limit = 50) {
+  async fetchTopCoins(currency = 'usd', limit = 250) {
     try {
       const response = await fetch(
         `${this.baseURL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=true&price_change_percentage=1h,24h,7d`,
