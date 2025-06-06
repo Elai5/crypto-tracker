@@ -7,8 +7,7 @@ import { Skeleton } from '../components/ui/Skeleton';
 const CoinChart = ({
   chartData,
   loading = false,
-  coinName = '',
-  priceChange = 0
+  
 }) => {
   // Custom tooltip component
   const CustomTooltip = ({ active, payload, label }) => {
