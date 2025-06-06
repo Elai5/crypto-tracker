@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Sidebar = ({ coins, onCoinSelect, selectedCoin }) => {
-  // Get top 50 coins
-  const top50Coins = coins.slice(0, 50);
+  // Get top 250 coins
+  const top250Coins = coins.slice(0, 250);
 
   return (
-    <div className="rounded-lg fixed top-24 sm:top-28 left-2 sm:left-4 w-72 sm:w-80 h-[calc(100vh-7rem)] bg-gray-800 shadow-xl border border-gray-700 z-40 flex flex-col">
+    <div className="rounded-lg bg-gray-800 shadow-xl border border-gray-700 flex flex-col h-[600px]">
       {/* Header - Fixed at top */}
       <div className="px-4 sm:px-6 py-4 border-b border-gray-700 flex-shrink-0">
         <h3 className="text-lg font-semibold text-white">
@@ -16,7 +16,7 @@ const Sidebar = ({ coins, onCoinSelect, selectedCoin }) => {
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto">
         <div className="p-3 sm:p-4 space-y-2">
-          {top50Coins.map((coin) => (
+          {top250Coins.map((coin) => (
             <div
               key={coin.id}
               onClick={() => onCoinSelect(coin)}
@@ -29,7 +29,7 @@ const Sidebar = ({ coins, onCoinSelect, selectedCoin }) => {
               <img 
                 src={coin.image} 
                 alt={coin.name} 
-                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex-shrink-0" 
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex-shrink-0"
               />
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate text-white text-sm sm:text-base">
