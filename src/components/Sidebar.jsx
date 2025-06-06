@@ -41,13 +41,13 @@ const Sidebar = ({ coins, onCoinSelect, selectedCoin }) => {
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="font-medium text-xs sm:text-sm text-white">
-                  ${coin.current_price.toFixed(2)}
+                  ${coin.current_price ? coin.current_price.toFixed(2) : '0.00'}
                 </p>
                 <p className={`text-xs font-medium ${
-                  coin.price_change_percentage_24h >= 0 ? 'text-green-500' : 'text-red-500'
+                  (coin.price_change_percentage_24h || 0) >= 0 ? 'text-green-500' : 'text-red-500'
                 }`}>
-                  {coin.price_change_percentage_24h >= 0 ? '+' : ''}
-                  {coin.price_change_percentage_24h?.toFixed(2)}%
+                  {(coin.price_change_percentage_24h || 0) >= 0 ? '+' : ''}
+                  {coin.price_change_percentage_24h ? coin.price_change_percentage_24h.toFixed(2) : '0.00'}%
                 </p>
               </div>
             </div>
