@@ -7,15 +7,14 @@ import { Skeleton } from '../components/ui/Skeleton';
 const CoinChart = ({
   chartData,
   loading = false,
-  
 }) => {
   // Custom tooltip component
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-gray-800 border border-gray-600 rounded-lg p-3 shadow-lg">
-          <p className="text-gray-300 text-sm">{label}</p>
-          <p className="text-green-400 font-semibold text-lg">
+        <div className="bg-gray-800 border border-gray-600 rounded-lg p-2 sm:p-3 shadow-lg max-w-xs">
+          <p className="text-gray-300 text-xs sm:text-sm">{label}</p>
+          <p className="text-green-400 font-semibold text-sm sm:text-lg">
             ${Number(payload[0].value).toFixed(6)}
           </p>
         </div>
@@ -24,32 +23,60 @@ const CoinChart = ({
     return null;
   };
 
-  // Format date for x-axis
+  // Format date for x-axis - responsive formatting
   const formatDate = (timeStr) => {
     if (!timeStr) return '';
     const date = new Date(timeStr);
-    return date.toLocaleDateString('en-US', { 
-      day: 'numeric'
-    });
+    // Show only day number on mobile, day + month on larger screens
+    return window?.innerWidth < 640 
+      ? date.toLocaleDateString('en-US', { day: 'numeric' })
+      : date.toLocaleDateString('en-US', { 
+          day: 'numeric',
+          month: 'short'
+        });
+  };
+
+  // Format Y-axis values based on screen size
+  const formatYAxis = (value) => {
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      // Mobile: shorter format
+      return Number(value) > 1 
+        ? `$${Number(value).toFixed(2)}`
+        : `$${Number(value).toFixed(4)}`;
+    }
+    // Desktop: full format
+    return `$${Number(value).toFixed(4)}`;
   };
 
   return (
-    <div className="w-full h-[300px] bg-gray-900 rounded-lg p-4 relative">
+    <div className="w-full h-[250px] sm:h-[300px] lg:h-[350px] bg-gray-900 rounded-lg p-2 sm:p-4 relative">
       {loading ? (
         <div className="h-full flex items-center justify-center">
           <Skeleton className="w-full h-full bg-gray-800" />
         </div>
       ) : (
         <>
-          {/* Price display in top right */}
+          {/* Price display - responsive positioning and sizing */}
           {chartData.length > 0 && (
-            <div className="absolute top-4 right-4 bg-green-500 text-black px-2 py-1 rounded text-sm font-semibold z-10">
-              ${Number(chartData[chartData.length - 1]?.price || 0).toFixed(6)}
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-green-500 text-black px-2 py-1 rounded text-xs sm:text-sm font-semibold z-10">
+              <span className="hidden sm:inline">$</span>
+              <span className="sm:hidden">$</span>
+              {Number(chartData[chartData.length - 1]?.price || 0).toFixed(
+                window?.innerWidth < 640 ? 4 : 6
+              )}
             </div>
           )}
           
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+            <AreaChart 
+              data={chartData} 
+              margin={{ 
+                top: window?.innerWidth < 640 ? 15 : 20, 
+                right: window?.innerWidth < 640 ? 15 : 30, 
+                left: 0, 
+                bottom: window?.innerWidth < 640 ? 25 : 30 
+              }}
+            >
               <defs>
                 <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#10B981" stopOpacity={0.3} />
@@ -68,20 +95,21 @@ const CoinChart = ({
               <XAxis 
                 dataKey="time"
                 stroke="#6B7280"
-                fontSize={10}
+                fontSize={window?.innerWidth < 640 ? 8 : 10}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={formatDate}
                 interval="preserveStartEnd"
+                minTickGap={window?.innerWidth < 640 ? 20 : 30}
               />
               
               <YAxis 
                 stroke="#6B7280"
-                fontSize={10}
+                fontSize={window?.innerWidth < 640 ? 8 : 10}
                 tickLine={false}
                 axisLine={false}
-                tickFormatter={(value) => `${Number(value).toFixed(4)}`}
-                width={60}
+                tickFormatter={formatYAxis}
+                width={window?.innerWidth < 640 ? 45 : 60}
                 domain={['dataMin - 0.0001', 'dataMax + 0.0001']}
                 orientation="right"
               />
@@ -92,11 +120,11 @@ const CoinChart = ({
                 type="monotone"
                 dataKey="price"
                 stroke="#10B981"
-                strokeWidth={2}
+                strokeWidth={window?.innerWidth < 640 ? 1.5 : 2}
                 fill="url(#priceGradient)"
                 dot={false}
                 activeDot={{
-                  r: 4,
+                  r: window?.innerWidth < 640 ? 3 : 4,
                   stroke: '#10B981',
                   strokeWidth: 2,
                   fill: '#1F2937'
@@ -105,14 +133,20 @@ const CoinChart = ({
             </AreaChart>
           </ResponsiveContainer>
           
-          {/* Generate 7-day labels with day names only */}
-          <div className="absolute bottom-1 left-4 right-4 flex justify-between text-xs text-gray-500">
-            {Array.from({ length: 7 }, (_, i) => {
+          {/* Generate 7-day labels with responsive formatting */}
+          <div className="absolute bottom-1 left-2 right-2 sm:left-4 sm:right-4 flex justify-between text-xs text-gray-500">
+            {Array.from({ length: window?.innerWidth < 640 ? 5 : 7 }, (_, i) => {
+              const totalDays = window?.innerWidth < 640 ? 5 : 7;
               const date = new Date();
-              date.setDate(date.getDate() - (6 - i));
+              date.setDate(date.getDate() - (totalDays - 1 - i));
               return (
-                <span key={i}>
-                  {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                <span key={i} className="text-center">
+                  <span className="block sm:hidden">
+                    {date.toLocaleDateString('en-US', { weekday: 'narrow' })}
+                  </span>
+                  <span className="hidden sm:block">
+                    {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                  </span>
                 </span>
               );
             })}
