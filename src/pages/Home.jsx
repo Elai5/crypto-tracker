@@ -11,8 +11,6 @@ import Footer from '../components/Footer';
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCoin, setSelectedCoin] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const coinsPerPage = 30;
   const { coins, loading, error } = useFetchCoins();
 
   // Set Bitcoin as default coin when coins are loaded
@@ -28,22 +26,15 @@ const Home = () => {
     coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredCoins.length / coinsPerPage);
-  const startIndex = (currentPage - 1) * coinsPerPage;
-  const endIndex = startIndex + coinsPerPage;
-  const currentCoins = filteredCoins.slice(startIndex, endIndex);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  // Get only top 20 coins
+  const topCoins = filteredCoins.slice(0, 20);
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-white">Loading cryptocurrency data...</p>
+          <p className="text-white font-primary">Loading cryptocurrency data...</p>
         </div>
       </div>
     );
@@ -95,17 +86,75 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Top Coins Table */}
+          {/* Top 20 Coins Table */}
           <div className="rounded-lg overflow-hidden bg-gray-800 shadow-lg">
-            <div className="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-700">
               <h3 className="text-lg font-semibold text-white">
-                Top Cryptocurrencies ({filteredCoins.length} coins)
+                Top Cryptocurrencies
+                {searchTerm && (
+                  <span className="text-sm text-gray-400 ml-2">
+                    ({topCoins.length} results)
+                  </span>
+                )}
               </h3>
-              <div className="text-sm text-gray-400">
-                Page {currentPage} of {totalPages}
+            </div>
+            
+            {/* Mobile Card Layout */}
+            <div className="block md:hidden">
+              <div className="divide-y divide-gray-700">
+                {topCoins.map((coin) => (
+                  <div
+                    key={coin.id}
+                    onClick={() => setSelectedCoin(coin)}
+                    className={`p-4 cursor-pointer hover:bg-gray-700 transition-colors ${
+                      selectedCoin?.id === coin.id ? 'bg-gray-700' : ''
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-3">
+                        <img
+                          src={coin.image}
+                          alt={coin.name}
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div>
+                          <div className="text-white font-medium">{coin.name}</div>
+                          <div className="text-gray-400 text-sm uppercase">{coin.symbol}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-white font-medium">
+                          ${coin.current_price?.toLocaleString()}
+                        </div>
+                        <div className={`text-sm ${
+                          coin.price_change_percentage_24h >= 0 ? 'text-green-500' : 'text-red-500'
+                        }`}>
+                          {coin.price_change_percentage_24h >= 0 ? '+' : ''}
+                          {coin.price_change_percentage_24h?.toFixed(2)}%
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <div className="text-gray-400">Market Cap</div>
+                        <div className="text-white">
+                          ${(coin.market_cap / 1e9).toFixed(2)}B
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400">Volume</div>
+                        <div className="text-white">
+                          ${(coin.total_volume / 1e6).toFixed(2)}M
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="overflow-x-auto">
+
+            {/* Desktop Table Layout */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-700">
                   <tr>
@@ -115,13 +164,13 @@ const Home = () => {
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                       Price
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 hidden lg:table-cell">
                       1h
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                       24h
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400 hidden xl:table-cell">
                       Volume
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -130,7 +179,7 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-700">
-                  {currentCoins.map((coin) => (
+                  {topCoins.map((coin) => (
                     <CoinRow
                       key={coin.id}
                       coin={coin}
@@ -142,59 +191,6 @@ const Home = () => {
                 </tbody>
               </table>
             </div>
-            
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="px-6 py-4 border-t border-gray-700 flex justify-center items-center space-x-2">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="px-3 py-2 text-sm font-medium text-gray-400 bg-gray-700 rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Previous
-                </button>
-                
-                {/* Page numbers */}
-                <div className="flex space-x-1">
-                  {[...Array(totalPages)].map((_, index) => {
-                    const page = index + 1;
-                    const isCurrentPage = page === currentPage;
-                    
-                    // Show first page, last page, current page, and pages around current page
-                    if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => handlePageChange(page)}
-                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                            isCurrentPage
-                              ? 'bg-blue-600 text-white'
-                              : 'text-gray-400 bg-gray-700 hover:bg-gray-600'
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      );
-                    } else if (page === currentPage - 2 || page === currentPage + 2) {
-                      return (
-                        <span key={page} className="px-2 py-2 text-gray-500">
-                          ...
-                        </span>
-                      );
-                    }
-                    return null;
-                  })}
-                </div>
-                
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-2 text-sm font-medium text-gray-400 bg-gray-700 rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Next
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Footer */}
