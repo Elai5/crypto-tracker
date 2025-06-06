@@ -22,7 +22,7 @@ const CoinDetails = ({ coin }) => {
 
   if (!coin) {
     return (
-      <div className="rounded-lg font-primary p-8 text-center bg-gray-800 text-gray-400">
+      <div className="rounded-lg font-primary p-8 text-center bg-gray-800 text-gray-400 h-[600px] flex flex-col justify-center">
         <BarChart3 className="w-16 h-16 mx-auto mb-4 opacity-50" />
         <p>Select a cryptocurrency to view details</p>
       </div>
@@ -39,8 +39,9 @@ const CoinDetails = ({ coin }) => {
   };
 
   return (
-    <div className="rounded-lg p-6 bg-gray-800 shadow-lg">
-      <div className="flex items-center space-x-4 mb-6">
+    <div className="rounded-lg p-6 bg-gray-800 shadow-lg h-[600px] flex flex-col">
+      {/* Header Section */}
+      <div className="flex items-center space-x-4 mb-6 flex-shrink-0">
         <img src={coin.image} alt={coin.name} className="w-12 h-12" />
         <div>
           <h2 className="text-2xl font-bold text-white">
@@ -52,7 +53,8 @@ const CoinDetails = ({ coin }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 flex-shrink-0">
         <div className="p-4 rounded-lg bg-gray-700">
           <div className="flex items-center space-x-2 mb-2">
             <DollarSign className="w-4 h-4 text-blue-500" />
@@ -104,15 +106,18 @@ const CoinDetails = ({ coin }) => {
         </div>
       </div>
 
-      <div className="p-4 rounded-lg bg-gray-700">
+      {/* Chart Section - Takes remaining space */}
+      <div className="flex-1 p-4 rounded-lg bg-gray-700 min-h-0">
         <h3 className="text-lg font-semibold mb-4 text-white">
           7-Day Price Chart
         </h3>
-        <CoinChart 
-          chartData={chartData} 
-          darkMode={true} 
-          loading={chartLoading} 
-        />
+        <div className="h-full">
+          <CoinChart 
+            chartData={chartData}
+            darkMode={true}
+            loading={chartLoading}
+          />
+        </div>
       </div>
     </div>
   );
