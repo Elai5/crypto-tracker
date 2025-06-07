@@ -112,7 +112,7 @@ const SearchBar = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => 
         <input
           ref={searchRef}
           type="text"
-          placeholder="Search coins..."
+          placeholder="Search for Coins..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           onKeyDown={handleKeyDown}
