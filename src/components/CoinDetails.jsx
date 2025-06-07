@@ -75,10 +75,10 @@ const CoinDetails = ({ coin }) => {
 
       {/* Stats Grid - Responsive layout */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-6 flex-shrink-0">
-        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-700">
+        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-900">
           <div className="flex items-center space-x-1 sm:space-x-2 mb-1 sm:mb-2">
             <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
-            <span className="text-xs sm:text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-200">
               <span className="hidden sm:inline">Current </span>Price
             </span>
           </div>
@@ -87,10 +87,10 @@ const CoinDetails = ({ coin }) => {
           </p>
         </div>
 
-        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-700">
+        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-900">
           <div className="flex items-center space-x-1 sm:space-x-2 mb-1 sm:mb-2">
             <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
-            <span className="text-xs sm:text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-200">
               24h<span className="hidden sm:inline"> Change</span>
             </span>
           </div>
@@ -102,10 +102,10 @@ const CoinDetails = ({ coin }) => {
           </p>
         </div>
 
-        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-700">
+        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-900">
           <div className="flex items-center space-x-1 sm:space-x-2 mb-1 sm:mb-2">
             <BarChart3 className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500" />
-            <span className="text-xs sm:text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-200">
               Market<span className="hidden sm:inline"> Cap</span>
             </span>
           </div>
@@ -114,10 +114,10 @@ const CoinDetails = ({ coin }) => {
           </p>
         </div>
 
-        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-700">
+        <div className="p-2 sm:p-3 lg:p-4 rounded-lg bg-gray-900">
           <div className="flex items-center space-x-1 sm:space-x-2 mb-1 sm:mb-2">
             <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />
-            <span className="text-xs sm:text-sm text-gray-400">
+            <span className="text-xs sm:text-sm text-gray-200">
               24h<span className="hidden sm:inline"> Volume</span>
             </span>
           </div>
