@@ -1,8 +1,8 @@
 // components/Header.jsx
 import React from 'react';
-import SearchBar from './Searchbar';
+import SearchBar from '../components/Searchbar'
 
-const Header = ({ searchTerm, onSearchChange }) => {
+const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-700 backdrop-blur-sm bg-opacity-95">
       <div className="container mx-auto px-4 py-4 font-primary">
@@ -16,14 +16,14 @@ const Header = ({ searchTerm, onSearchChange }) => {
               Real-time cryptocurrency tracker
             </p>
           </div>
-          
+                    
           {/* Search Bar Section */}
-          <div className="flex-1 max-w-md  sm:ml-8">
+          <div className="flex-1 max-w-md sm:ml-8">
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={onSearchChange}
-              darkMode={true}
-            
+              coins={coins}
+              onCoinSelect={onCoinSelect}
             />
           </div>
         </div>
