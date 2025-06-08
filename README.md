@@ -9,7 +9,7 @@ A React dashboard for tracking live cryptocurrency prices with interactive chart
 - **Interactive Charts**: 7-day price history
 - **Virtual Scrolling**: Handles 250+ coins efficiently
 - **Responsive**: Mobile-first design
-- **Dark Theme**: Modern glass morphism UI
+
 
 ## Tech Stack
 
