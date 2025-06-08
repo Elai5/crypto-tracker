@@ -1,12 +1,97 @@
-# React + Vite
+# Cryptocurrency Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React dashboard for tracking live cryptocurrency prices with interactive charts and search.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Live Data**: Real-time crypto prices from CoinGecko API
+- **Smart Search**: Autocomplete with keyboard navigation
+- **Interactive Charts**: 7-day price history
+- **Virtual Scrolling**: Handles 250+ coins efficiently
+- **Responsive**: Mobile-first design
+- **Dark Theme**: Modern glass morphism UI
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 18 + Tailwind CSS
+- Recharts for charts
+- CoinGecko API
+- Virtual scrolling with react-window
+
+## Architecture
+
+```
+src/
+├── components/    # UI components
+├── hooks/        # Data fetching logic
+├── services/     # API with caching
+└── pages/        # Main app
+```
+
+## Key Implementation
+
+- **Caching**: 1-minute API cache with fallbacks
+- **Performance**: Virtual scrolling, lazy loading, memoization
+- **Search**:  Matching on coin names/symbols
+- **Responsive**: Adaptive layouts for mobile/desktop
+- **State**: Local state with props drilling
+
+## Performance Features
+
+- Virtual scrolling for large lists
+- Component lazy loading
+- API response caching
+- Optimized re-renders
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git@github.com:kiprotichabiud/crypto-tracker.git
+   ```
+
+2. **Navigate into the project directory:**
+
+   ```bash
+   cd crypto-tracker
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+4. **Run the development server:**
+
+   ```bash
+   npm run dev
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. **Fork the repository**.
+2. **Create a new branch**: `git checkout -b feature-branch`.
+3. **Make your changes**.
+4. **Commit your changes**: `git commit -m 'Add new feature'`.
+5. **Push to the branch**: `git push origin feature-branch`.
+6. **Create a Pull Request**.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For questions or feedback, please contact:
+
+- **Email**: kiprotichabiud1@gmail.com
+- **GitHub**: [(https://github.com/kiprotichabiud)]
