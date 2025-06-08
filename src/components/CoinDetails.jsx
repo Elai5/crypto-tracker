@@ -24,7 +24,7 @@ const CoinDetails = ({ coin }) => {
     return (
       <div className="rounded-lg font-primary p-4 sm:p-8 text-center bg-gray-800 text-gray-400 h-[400px] sm:h-[500px] lg:h-[600px] flex flex-col justify-center">
         <BarChart3 className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 opacity-50" />
-        <p className="text-sm sm:text-base">Select a cryptocurrency to view details</p>
+        <p className="text-sm sm:text-base">Select a cryptocurrency to it's view details</p>
       </div>
     );
   }
