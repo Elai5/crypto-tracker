@@ -1,4 +1,4 @@
-// components/CoinDetails.jsx
+
 import React, { useState, useEffect } from 'react';
 import { DollarSign, TrendingUp, BarChart3, Eye } from 'lucide-react';
 import coinGeckoAPI from '../services/Coingecko';
