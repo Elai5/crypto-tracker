@@ -6,9 +6,9 @@ A React dashboard for tracking live cryptocurrency prices with interactive chart
 
 - **Live Data**: Real-time crypto prices from CoinGecko API
 - **Smart Search**: Autocomplete with keyboard navigation
-- **Interactive Charts**: 7-day price history
+- **Interactive Charts**: 7-day price history chart
 - **Virtual Scrolling**: Handles 250+ coins efficiently
-- **Responsive**: Mobile-first design
+- **Responsive**: Mobile-first design 
 
 
 ## Tech Stack
