@@ -118,7 +118,7 @@ const Home = () => {
             
             <Suspense fallback={<LoadingSkeleton />}>
               {/* Mobile layout */}
-              <div className="block md:hidden">
+              {/* <div className="block md:hidden">
                 <div className="divide-y divide-gray-700">
                   {topCoins.map((coin) => (
                     <div
@@ -170,7 +170,7 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Desktop table layout */}
               {/* <div className="hidden md:block overflow-x-auto">
