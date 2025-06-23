@@ -1,6 +1,9 @@
+/** @format */
 
-import React from 'react';
-import SearchBar from '../components/Searchbar'
+import React from "react";
+import SearchBar from "../components/Searchbar";
+
+import { NavLink } from "react-router-dom";
 
 const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
   return (
@@ -16,7 +19,37 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
               Real-time cryptocurrency tracker
             </p>
           </div>
-                    
+          <>
+            <nav>
+              <ul className="flex  gap-5 ">
+                <li className="text-white font-bold">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li className="text-white font-bold">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Market
+                  </NavLink>
+                </li>
+                <li className="text-white font-bold">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Watchlist
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+          </>
+
           {/* Search Bar Section */}
           <div className="flex-1 max-w-md sm:ml-8">
             <SearchBar
