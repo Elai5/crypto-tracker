@@ -19,7 +19,7 @@ const Signup = () => {
           <form
             action=""
             method="post"
-            className="w-1/2 flex flex-col items-center bg-white gap-5 py-6 px-8 shadow-lg border rounded-lg"
+            className="w-1/2 flex flex-col items-center bg-white gap-5 py-10 px-8 shadow-lg border rounded-lg"
           >
             <div className="flex gap-2">
               <Link
