@@ -6,8 +6,6 @@ import {
   UserPlus,
   Mail,
   CircleUserRound,
-  RectangleEllipsis,
-  SquareCheck,
   Zap,
   TrendingUp,
   Shield,
@@ -17,9 +15,13 @@ import {
   Lock,
   ShieldCheck,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Signup = () => {
+  const location = useLocation();
+  const isSignin = location.pathname === "/signin";
+  const isSignUp = location.pathname === "/signup";
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -42,7 +44,7 @@ const Signup = () => {
       {/* subtle background animation */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter-blur-xl opacity-10 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-mutiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-mutiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
       </div>
       {/* crypto coins for display */}
@@ -60,6 +62,7 @@ const Signup = () => {
           <Star size={18} />
         </div>
       </div>
+      
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
@@ -76,18 +79,30 @@ const Signup = () => {
           {/* form container */}
           <div className="backdrop-blur-sm bg-gray-800/80 border border-gray-700/50 rounded-2xl shadow-2xl p-8 space-y-6 ">
             {/* signup and signin buttons */}
+
             <div className="flex gap-2 p-1 bg-gray-700/50 rounded-xl">
-              <button
-                type="button"
-                className="flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-sm px-4 py-3 transition-all duration-300 hover:bg-gray-600/50"
+              <Link
+                to="/signin"
+                className={`flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-sm px-4 py-3 transition-all duration-300 ${
+                  isSignin
+                    ? "text-white bg-gradient-to-r from-blue-500 to-indigo shadow-lg"
+                    : "text-gray-400 hover:text-white hover:bg-gray-600/50"
+                }`}
               >
                 <User size={18} />
                 Sign In
-              </button>
-              <div className="flex-1 flex items-center justify-center gap-2 text-white bg-gradient-to-r from-blue-500 to-indigo-600 font-medium rounded-lg text-sm px-4 py-3 shadow-lg">
+              </Link>
+              <Link
+                to="/signup"
+                className={`flex-1 flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-4 py-3 ${
+                  isSignUp
+                    ? "text-white bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg"
+                    : "text-gray hover:text-white hover:bg-gray-600/50"
+                }`}
+              >
                 <UserPlus size={18} />
                 Sign Up
-              </div>
+              </Link>
             </div>
 
             <div className="space-y-5">
@@ -176,7 +191,7 @@ const Signup = () => {
                   htmlFor="Confirm Password"
                   className="block text-sm font-medium text-gray-200 mb-2"
                 >
-                  Conffirm Password
+                  Confirm Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -195,7 +210,7 @@ const Signup = () => {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover-text-white transition-colors"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-white transition-colors"
                   >
                     {showConfirmPassword ? (
                       <EyeOff size={18} />
