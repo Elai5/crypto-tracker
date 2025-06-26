@@ -6,7 +6,7 @@ import useFetchCoins from "../hooks/UseFetchCoins";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Signup from "./Signup";
-import Signin from "./Signin";
+// import Signin from "./Signin";
 
 // Lazy load heavy components
 const Sidebar = lazy(() => import("../components/Sidebar"));
@@ -217,7 +217,7 @@ const Home = () => {
                 </table>
               </div> */}
               <Signup />
-              <Signin />
+              {/* <Signin /> */}
             </Suspense>
           </div>
 
