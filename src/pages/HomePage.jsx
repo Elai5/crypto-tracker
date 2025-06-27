@@ -231,5 +231,5 @@ const Home = () => {
     </div>
   );
 };
-<Signup />;
+{/* <Signup />; */}
 export default Home;

@@ -62,7 +62,7 @@ const Signup = () => {
           <Star size={18} />
         </div>
       </div>
-      
+
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
@@ -273,7 +273,7 @@ const Signup = () => {
                   Already have an account?
                   <button
                     type="button"
-                    className="text-blue-400 hover:text-blue-300 font-medium transitions-colors underline bg-transparent border-none cursor-pointer"
+                    className="text-blue-400 px-1 hover:text-blue-300 font-medium transitions-colors underline bg-transparent border-none cursor-pointer"
                   >
                     {" "}
                     Sign in here

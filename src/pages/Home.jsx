@@ -125,14 +125,14 @@ const Home = () => {
 
             <Suspense fallback={<LoadingSkeleton />}>
               {/* Mobile layout */}
-              {/* <div className="block md:hidden">
+              <div className="block md:hidden">
                 <div className="divide-y divide-gray-700">
                   {topCoins.map((coin) => (
                     <div
                       key={coin.id}
                       onClick={() => handleCoinSelect(coin)}
                       className={`p-4 cursor-pointer hover:bg-gray-700 transition-colors ${
-                        selectedCoin?.id === coin.id ? 'bg-gray-700' : ''
+                        selectedCoin?.id === coin.id ? "bg-gray-700" : ""
                       }`}
                     >
                       <div className="flex items-center justify-between mb-2">
@@ -144,18 +144,26 @@ const Home = () => {
                             loading="lazy"
                           />
                           <div>
-                            <div className="text-white font-medium">{coin.name}</div>
-                            <div className="text-gray-400 text-sm uppercase">{coin.symbol}</div>
+                            <div className="text-white font-medium">
+                              {coin.name}
+                            </div>
+                            <div className="text-gray-400 text-sm uppercase">
+                              {coin.symbol}
+                            </div>
                           </div>
                         </div>
                         <div className="text-right">
                           <div className="text-white font-medium">
                             ${coin.current_price?.toLocaleString()}
                           </div>
-                          <div className={`text-sm ${
-                            coin.price_change_percentage_24h >= 0 ? 'text-green-500' : 'text-red-500'
-                          }`}>
-                            {coin.price_change_percentage_24h >= 0 ? '+' : ''}
+                          <div
+                            className={`text-sm ${
+                              coin.price_change_percentage_24h >= 0
+                                ? "text-green-500"
+                                : "text-red-500"
+                            }`}
+                          >
+                            {coin.price_change_percentage_24h >= 0 ? "+" : ""}
                             {coin.price_change_percentage_24h?.toFixed(2)}%
                           </div>
                         </div>
@@ -177,10 +185,9 @@ const Home = () => {
                     </div>
                   ))}
                 </div>
-              </div> */}
-
+              </div>
               {/* Desktop table layout */}
-              {/* <div className="hidden md:block overflow-x-auto">
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-700">
                     <tr>
@@ -202,6 +209,10 @@ const Home = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Market Cap
                       </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                        Add to Watchlist
+                      </th>
+
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
@@ -216,10 +227,10 @@ const Home = () => {
                     ))}
                   </tbody>
                 </table>
-              </div> */}
-              <Signup />
-              <Signin />
-              <Profile />
+              </div>{" "}
+              {/* <Signup /> */}
+              {/* <Signin /> */}
+              {/* <Profile /> */}
             </Suspense>
           </div>
 

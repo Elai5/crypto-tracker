@@ -4,6 +4,7 @@ import React from "react";
 import SearchBar from "../components/Searchbar";
 
 import { NavLink } from "react-router-dom";
+import { ArrowBigDown, ChevronDown } from "lucide-react";
 
 const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
   return (
@@ -44,6 +45,23 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     Watchlist
+                  </NavLink>
+                </li>
+                <li className=" text-white font-bold">
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Profile
+                  </NavLink>
+                  {/* <ChevronDown size={16} /> */}
+                </li>
+                <li className="text-white font-bold">
+                  <NavLink
+                    to="/signin"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Join Now
                   </NavLink>
                 </li>
               </ul>

@@ -35,93 +35,8 @@ const Signin = () => {
     }));
   };
   return (
-    // <div>
-    //   {" "}
-    //   <div className="flex h-screen">
-    //     <div className="flex justify-center py-4 bg-gray-800 w-full ">
-    //       <form
-    //         action=""
-    //         method="post"
-    //         className="w-1/2 flex flex-col items-center bg-white gap-5 py-10 px-8 shadow-lg border rounded-lg"
-    //       >
-    //         <div className="flex gap-2">
-    //           <Link
-    //             to="/signin"
-    //             className="flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 cursor-pointer"
-    //           >
-    //             <User />
-    //             Sign In
-    //           </Link>
-
-    //           <Link
-    //             to="/signup"
-    //             className="flex items-center gap-2 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-pointer"
-    //           >
-    //             <UserPlus />
-    //             Sign Up
-    //           </Link>
-    //         </div>
-    //         <div className="w-full flex flex-col gap-8">
-    //           <label
-    //             htmlFor="email"
-    //             className="flex gap-3 py-2 px-2 shadow-md rounded-lg w-full focus-within:ring-2 focus-within:ring-blue-500"
-    //           >
-    //             {" "}
-    //             <Mail />
-    //             <input
-    //               type="email"
-    //               name="email"
-    //               id="email"
-    //               placeholder="Email"
-    //               required
-    //               className="w-full outline-none "
-    //             />
-    //           </label>
-
-    //           <label
-    //             htmlFor="password"
-    //             className="flex gap-3 py-2 px-2 shadow-md rounded-lg w-full focus-within:ring-2 focus-within:ring-blue-500"
-    //           >
-    //             {" "}
-    //             <RectangleEllipsis />
-    //             <input
-    //               type="password"
-    //               name="pass1"
-    //               id="pass1"
-    //               placeholder="password"
-    //               required
-    //               className="w-full outline-none"
-    //             />
-    //           </label>
-    //           <span className="px-2 text-blue-700">Forgot Password?</span>
-    //           <label for="input checkbox" className="px-2 flex items-center ">
-    //             <input type="checkbox" name="" id="" className="mr-2 size-5" />
-    //             <span className="text-md">Remember Me</span>
-    //           </label>
-
-    //           <button
-    //             type="button"
-    //             className="flex items-center justify-center gap-2 py-2.5 px-5 me-2 mb-2 text-base font-medium text-white bg-blue-700 focus:outline-none rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 text-center cursor-pointer transition-colors duration-300"
-    //           >
-    //             {" "}
-    //             <User />
-    //             <span className="text-sm"> Sign In</span>
-    //           </button>
-
-    //           <Link
-    //             to="/signup"
-    //             className="flex items-center justify-center bg-gray-100/60 backdrop-blur-sm rounded-lg border border-gray-200 shadow py-2.5 px-5 w-full mx-auto"
-    //           >
-    //             Don't have an account?{" "}
-    //             <span className="px-2 text-blue-700"> Sign Up</span>
-    //           </Link>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
-
     <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+      {/* <Header /> */}
       {/* subtle background animation */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter-blur-xl opacity-10 animate-pulse"></div>
@@ -158,8 +73,7 @@ const Signin = () => {
 
           {/* form container */}
           <div className="backdrop-blur-sm bg-gray-800/80 border border-gray-700/50 rounded-2xl shadow-2xl p-8 space-y-6 ">
-            {/* signup and signin buttons */}
-
+            {/* signup and signin toggle buttons */}
             <div className="flex gap-2 p-1 bg-gray-700/50 rounded-xl">
               <Link
                 to="/signin"
@@ -185,6 +99,7 @@ const Signin = () => {
               </Link>
             </div>
 
+            {/* resst of form inputs */}
             <div className="space-y-5">
               <div className="group">
                 <label
@@ -201,7 +116,7 @@ const Signin = () => {
                   <input
                     type="email"
                     name="email"
-                    id=""
+                    id="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Enter your email"
@@ -225,7 +140,7 @@ const Signin = () => {
                   <input
                     type="password"
                     name="password"
-                    id=""
+                    id="password"
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Enter your password"
@@ -240,6 +155,25 @@ const Signin = () => {
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
+              </div>
+              <div className="flex items-center justify-between px-3 mb-4">
+                <a href="#" className="text-sm text-blue-400 hover:underline">
+                  Forgot Password?
+                </a>
+              </div>
+
+              <div className="flex items-center px-3 space-x-3">
+                <input
+                  type="checkbox"
+                  name="termsAccepted"
+                  id="rememberMe"
+                  checked={formData.termsAccepted}
+                  onChange={handleInputChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-2 focus:ring-blue-500"
+                />
+                <label htmlFor="rememberMe" className="text-sm text-gray-300">
+                  Remember Me
+                </label>
               </div>
 
               <button
@@ -268,7 +202,7 @@ const Signin = () => {
                   Don't have an account?
                   <button
                     type="button"
-                    className="text-blue-400 hover:text-blue-300 font-medium transitions-colors underline bg-transparent border-none cursor-pointer"
+                    className="text-blue-400 px-1 hover:text-blue-300 font-medium transitions-colors underline bg-transparent border-none cursor-pointer"
                   >
                     {" "}
                     Create one here
