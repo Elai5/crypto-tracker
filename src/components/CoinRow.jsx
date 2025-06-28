@@ -137,15 +137,16 @@ const CoinRow = ({
             e.stopPropagation();
             onAddToWatchlist(coin);
           }}
+          className={`transition-colors duration-200 ${
+            isInWatchlist
+              ? "text-yellow-400"
+              : "text-grey-400 hover:text-yellow-300"
+          }`}
         >
           <Star
             fill={isInWatchlist ? "currentColor" : "none"}
             stroke="currentColor"
-            className={`w-5 h-5 transition-colors duration-200 ${
-              isInWatchlist
-                ? "text-yellow-400"
-                : "text-gray-400 hover:text-yellow-300"
-            }`}
+            className="w-5 h-5"
           />
         </button>
       </td>

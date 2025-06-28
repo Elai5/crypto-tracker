@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "../supabaseClient"; // or wherever your Supabase client is
+import { supabase } from "../supabaseClient";
 
 const AuthContext = createContext();
 

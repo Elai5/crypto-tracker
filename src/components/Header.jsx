@@ -2,11 +2,20 @@
 
 import React from "react";
 import SearchBar from "../components/Searchbar";
+import { supabase } from "../supabaseClient";
 
-import { NavLink } from "react-router-dom";
-import { ArrowBigDown, ChevronDown } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSingOut = async () => {
+    await signOut();
+    navigate("/");
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-700 backdrop-blur-sm bg-opacity-95">
       <div className="container mx-auto px-4 py-4 font-primary">
@@ -21,6 +30,7 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
             </p>
           </div>
           <>
+            {/* navigation links */}
             <nav>
               <ul className="flex  gap-5 ">
                 <li className="text-white font-bold">
@@ -31,39 +41,64 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                     Home
                   </NavLink>
                 </li>
-                <li className="text-white font-bold">
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Market
-                  </NavLink>
-                </li>
-                <li className="text-white font-bold">
-                  <NavLink
-                    to="/watchlist"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Watchlist
-                  </NavLink>
-                </li>
-                <li className=" text-white font-bold">
-                  <NavLink
-                    to="/profile"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Profile
-                  </NavLink>
-                  {/* <ChevronDown size={16} /> */}
-                </li>
-                <li className="text-white font-bold">
-                  <NavLink
-                    to="/signin"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Join Now
-                  </NavLink>
-                </li>
+                {/* restricted to only is user is logged in */}
+                {user && (
+                  <li className="text-white font-bold">
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Market
+                    </NavLink>
+                  </li>
+                )}
+                {/* restricted to only is user is logged in */}
+                {user && (
+                  <li className="text-white font-bold">
+                    <NavLink
+                      to="/watchlist"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Watchlist
+                    </NavLink>
+                  </li>
+                )}
+                {/* Show Profile only if user is logged in */}
+                {user && (
+                  <li className=" text-white font-bold">
+                    <NavLink
+                      to="/profile"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Profile
+                    </NavLink>
+                    {/* <ChevronDown size={16} /> */}
+                  </li>
+                )}
+
+                {/* Show Join Now only if user is NOT logged in */}
+                {!user && (
+                  <li className="text-white font-bold">
+                    <NavLink
+                      to="/signin"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      Join Now
+                    </NavLink>
+                  </li>
+                )}
+
+                {/* Show Sign Out button only if user is logged in */}
+                {user && (
+                  <li className="text-white font-bold">
+                    <button
+                      onClick={signOut}
+                      className="hover:text-yellow-400 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </li>
+                )}
               </ul>
             </nav>
           </>
