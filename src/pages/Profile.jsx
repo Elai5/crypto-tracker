@@ -26,7 +26,7 @@ export const Profile = () => {
       const { data, error } = await supabase
         .from("profile")
         .select("*")
-        .eq("user_id", user.id) // Use user_id instead of id
+        .eq("user_id", user.id)
         .maybeSingle();
 
       console.log("Fetch profile result data:", data);
@@ -77,7 +77,6 @@ export const Profile = () => {
             </h2>
             <span className="text-base text-green-400">
               {profile?.account_type || "User"}{" "}
-              {/* Ensure this matches your column name */}
             </span>
           </div>
 
@@ -109,7 +108,6 @@ export const Profile = () => {
             <p className="text-white">
               {profile?.account_type || "Loading"}
             </p>{" "}
-            {/* Ensure this matches your column name */}
           </div>
         </div>
       </div>
