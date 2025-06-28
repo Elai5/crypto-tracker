@@ -41,17 +41,7 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                     Home
                   </NavLink>
                 </li>
-                {/* restricted to only is user is logged in */}
-                {user && (
-                  <li className="text-white font-bold">
-                    <NavLink
-                      to="/"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Market
-                    </NavLink>
-                  </li>
-                )}
+
                 {/* restricted to only is user is logged in */}
                 {user && (
                   <li className="text-white font-bold">
@@ -81,7 +71,11 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                   <li className="text-white font-bold">
                     <NavLink
                       to="/signin"
-                      className={({ isActive }) => (isActive ? "active" : "")}
+                      className={({ isActive }) =>
+                        `${
+                          isActive ? "active" : ""
+                        } bg-blue-500 rounded-lg hover:bg-gradient-to-r  from-blue-500 to-indigo-600 text-white font-bold py-2 px-4 transition-colors`
+                      }
                     >
                       Join Now
                     </NavLink>
