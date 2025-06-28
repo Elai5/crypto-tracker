@@ -2,16 +2,16 @@
 
 import React from "react";
 import SearchBar from "../components/Searchbar";
-import { supabase } from "../supabaseClient";
+// import { supabase } from "../supabaseClient";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
   const navigate = useNavigate();
 
-  const handleSingOut = async () => {
+  const handleSignOut = async () => {
     await signOut();
     navigate("/");
   };
@@ -29,73 +29,87 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
               Real-time cryptocurrency tracker
             </p>
           </div>
-          <>
-            {/* navigation links */}
-            <nav>
-              <ul className="flex  gap-5 ">
-                <li className="text-white font-bold">
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Home
-                  </NavLink>
-                </li>
 
-                {/* restricted to only is user is logged in */}
-                {user && (
-                  <li className="text-white font-bold">
-                    <NavLink
-                      to="/watchlist"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Watchlist
-                    </NavLink>
-                  </li>
-                )}
-                {/* Show Profile only if user is logged in */}
-                {user && (
-                  <li className=" text-white font-bold">
-                    <NavLink
-                      to="/profile"
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                    >
-                      Profile
-                    </NavLink>
-                    {/* <ChevronDown size={16} /> */}
-                  </li>
-                )}
+          {/* navigation links */}
+          <nav>
+            <ul className="flex gap-5">
+              {/* Home - Always visible */}
+              <li className="text-white font-bold">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-yellow-400"
+                      : "hover:text-yellow-400 transition-colors"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
 
-                {/* Show Join Now only if user is NOT logged in */}
-                {!user && (
-                  <li className="text-white font-bold">
-                    <NavLink
-                      to="/signin"
-                      className={({ isActive }) =>
-                        `${
-                          isActive ? "active" : ""
-                        } bg-blue-500 rounded-lg hover:bg-gradient-to-r  from-blue-500 to-indigo-600 text-white font-bold py-2 px-4 transition-colors`
-                      }
-                    >
-                      Join Now
-                    </NavLink>
-                  </li>
-                )}
+              {/* Conditional links based on auth state */}
+              {!loading && (
+                <>
+                  {/* Show these links only when user is logged in */}
+                  {user && (
+                    <>
+                      <li className="text-white font-bold">
+                        <NavLink
+                          to="/watchlist"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "text-yellow-400"
+                              : "hover:text-yellow-400 transition-colors"
+                          }
+                        >
+                          Watchlist
+                        </NavLink>
+                      </li>
+                      <li className="text-white font-bold">
+                        <NavLink
+                          to="/profile"
+                          className={({ isActive }) =>
+                            isActive
+                              ? "text-yellow-400"
+                              : "hover:text-yellow-400 transition-colors"
+                          }
+                        >
+                          Profile
+                        </NavLink>
+                      </li>
+                      <li className="text-white font-bold">
+                        <button
+                          onClick={handleSignOut}
+                          className="hover:text-yellow-400 transition-colors"
+                        >
+                          Sign Out
+                        </button>
+                      </li>
+                    </>
+                  )}
 
-                {/* Show Sign Out button only if user is logged in */}
-                {user && (
-                  <li className="text-white font-bold">
-                    <button
-                      onClick={signOut}
-                      className="hover:text-yellow-400 transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </li>
-                )}
-              </ul>
-            </nav>
-          </>
+                  {/* Show Join Now only when user is NOT logged in */}
+                  {!user && (
+                    <li className="text-white font-bold">
+                      <NavLink
+                        to="/signin"
+                        className={({ isActive }) =>
+                          `${
+                            isActive
+                              ? "bg-indigo-600"
+                              : "bg-blue-500 hover:bg-indigo-600"
+                          } rounded-lg text-white font-bold py-2 px-4 transition-colors`
+                        }
+                      >
+                        Join Now
+                      </NavLink>
+                    </li>
+                  )}
+                </>
+              )}
+            </ul>
+          </nav>
+          {/* </> */}
 
           {/* Search Bar Section */}
           <div className="flex-1 max-w-md sm:ml-8">

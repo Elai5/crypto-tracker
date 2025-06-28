@@ -15,14 +15,17 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Signin = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { signIn, signUp, loading } = useAuth();
   const isSignin = location.pathname === "/signin";
   const isSignUp = location.pathname === "/signup";
 
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -39,17 +42,21 @@ const Signin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (!formData.email || !formData.password) {
-      alert("please enter both email and password");
+      setError("please enter both email and password");
       return;
     }
-
-    const loginSuccess = true;
-
-    if (loginSuccess) {
+    try {
+      if (isSignUp) {
+        await signUp(formData.email, formData.password);
+      } else {
+        await signIn(formData.email, formData.password);
+      }
       navigate("/");
-    } else {
-      alert("Login failed: wrong email or password");
+    } catch (err) {
+      setError(err.message || "Authentication failed");
     }
   };
   return (
@@ -60,7 +67,7 @@ const Signin = () => {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-mutiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-mutiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
       </div>
-      {/* crypto coins for display */}
+      {/* Floating icons on display */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-20 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
@@ -82,10 +89,13 @@ const Signin = () => {
               <Zap className="text-white" size={32} />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">
-              {" "}
-              Join KiproCurrency
+              {isSignUp ? "Join KiproCurrency" : "Welcome Back"}
             </h1>
-            <p className="text-gray-300">Start your crypto journey today</p>
+            <p className="text-gray-300">
+              {isSignUp
+                ? "Start your crpto journey today"
+                : "Sign in to your account"}
+            </p>
           </div>
 
           {/* form container */}
@@ -116,6 +126,13 @@ const Signin = () => {
                 Sign Up
               </Link>
             </div>
+
+            {/* Error message */}
+            {error && (
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+                {error}
+              </div>
+            )}
 
             <form onSubmit={handleLogin}>
               {/* resst of form inputs */}
@@ -197,11 +214,18 @@ const Signin = () => {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   // onClick={handleLogin}
                   className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
                 >
-                  <UserPlus size={20} />
-                  Sign In
+                  {loading ? (
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  ) : (
+                    <>
+                      {isSignUp ? <UserPlus size={20} /> : <User size={20} />}
+                      {isSignUp ? "Sign Up" : "Sign In"}
+                    </>
+                  )}
                 </button>
 
                 {/* security badge for sense of security */}
