@@ -121,7 +121,7 @@ const SearchBar = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => 
               setShowSuggestions(true);
             }
           }}
-          className="w-[75%] pl-10 pr-10 py-3 rounded-lg border text-white bg-gray-800 border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-all duration-200"
+          className="w-full pl-10 pr-10 py-3 rounded-lg border text-white bg-gray-800 border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-all duration-200"
         />
         {searchTerm && (
           <button

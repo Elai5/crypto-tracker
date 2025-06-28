@@ -19,12 +19,10 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900 border-b border-gray-700 backdrop-blur-sm bg-opacity-95">
       <div className="container mx-auto px-4 py-4 font-primary">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex flex-col justify-around sm:flex-row sm:items-center sm:justify-between gap-6">
           {/* Title Section */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">
-              Kipro Currency
-            </h1>
+            <h1 className="text-lg font-bold text-white">Kipro Currency</h1>
             <p className="text-sm text-gray-400">
               Real-time cryptocurrency tracker
             </p>
@@ -39,8 +37,8 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? "text-yellow-400"
-                      : "hover:text-yellow-400 transition-colors"
+                      ? "text-blue-400"
+                      : "hover:text-blue-400 transition-colors"
                   }
                 >
                   Home
@@ -58,8 +56,8 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                           to="/watchlist"
                           className={({ isActive }) =>
                             isActive
-                              ? "text-yellow-400"
-                              : "hover:text-yellow-400 transition-colors"
+                              ? "text-blue-400"
+                              : "hover:text-blue-400 transition-colors"
                           }
                         >
                           Watchlist
@@ -70,8 +68,8 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                           to="/profile"
                           className={({ isActive }) =>
                             isActive
-                              ? "text-yellow-400"
-                              : "hover:text-yellow-400 transition-colors"
+                              ? "text-blue-400"
+                              : "hover:text-blue-400 transition-colors"
                           }
                         >
                           Profile
@@ -80,12 +78,27 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                       <li className="text-white font-bold">
                         <button
                           onClick={handleSignOut}
-                          className="hover:text-yellow-400 transition-colors"
+                          className="cursor-pointer text-white font-bold "
                         >
                           Sign Out
                         </button>
                       </li>
                     </>
+                  )}
+                  {/* Show Join Now only when user is NOT logged in */}
+                  {!user && (
+                    <li className="text-white font-bold">
+                      <a
+                        href="#market"
+                        className={({ isActive }) =>
+                          `${
+                            isActive ? "text-blue-300" : " hover:text-blue-300"
+                          }  text-white  transition-colors`
+                        }
+                      >
+                        Market
+                      </a>
+                    </li>
                   )}
 
                   {/* Show Join Now only when user is NOT logged in */}
@@ -95,10 +108,8 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                         to="/signin"
                         className={({ isActive }) =>
                           `${
-                            isActive
-                              ? "bg-indigo-600"
-                              : "bg-blue-500 hover:bg-indigo-600"
-                          } rounded-lg text-white font-bold py-2 px-4 transition-colors`
+                            isActive ? "text-blue-300" : " hover:text-blue-300"
+                          }  text-white  transition-colors`
                         }
                       >
                         Join Now
@@ -112,7 +123,7 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
           {/* </> */}
 
           {/* Search Bar Section */}
-          <div className="flex-1 max-w-md sm:ml-8">
+          <div className="max-w-full">
             <SearchBar
               searchTerm={searchTerm}
               onSearchChange={onSearchChange}

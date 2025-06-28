@@ -116,7 +116,10 @@ const Home = () => {
           </div>
 
           {/* Optimized table rendering */}
-          <div className="rounded-lg overflow-hidden bg-gray-800 shadow-lg">
+          <div
+            className="rounded-lg overflow-hidden bg-gray-800 shadow-lg"
+            id="market"
+          >
             <div className="px-4 sm:px-6 py-4 border-b border-gray-700">
               <h3 className="text-lg font-semibold text-white">
                 Top Cryptocurrencies

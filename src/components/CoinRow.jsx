@@ -140,7 +140,7 @@ const CoinRow = ({
           className={`transition-colors duration-200 ${
             isInWatchlist
               ? "text-yellow-400"
-              : "text-grey-400 hover:text-yellow-300"
+              : "text-white hover:text-yellow-300"
           }`}
         >
           <Star

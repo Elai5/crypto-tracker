@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../supabaseClient";
+import { Dot } from "lucide-react";
 
 export const Profile = () => {
   console.log("Profile page loaded");
@@ -26,7 +27,7 @@ export const Profile = () => {
       const { data, error } = await supabase
         .from("profile")
         .select("*")
-        .eq("user_id", user.id) // Use user_id instead of id
+        .eq("user_id", user.id)
         .maybeSingle();
 
       console.log("Fetch profile result data:", data);
@@ -67,49 +68,78 @@ export const Profile = () => {
 
   return (
     <div className="bg-gray-900 p-6 mt-20 min-h-screen">
-      <h1 className="text-3xl font-bold mb-2 text-white">Profile</h1>
-      <p className="mb-4 text-gray-500">View all your profile details here.</p>
-      <div className="flex">
-        <div className="flex flex-col items-center gap-3 p-4 rounded shadow-md w-1/2 text-center">
-          <div>
-            <h2 className="font-semibold text-white text-2xl">
-              {profile?.fullname || "Loading..."}
-            </h2>
-            <span className="text-base text-green-400">
-              {profile?.account_type || "User"}{" "}
-              {/* Ensure this matches your column name */}
-            </span>
-          </div>
+      <div className="px-20 pt-5">
+        <h1 className="text-3xl font-bold mb-2 text-white">Profile</h1>
+        <p className="mb-4 text-gray-500">
+          View all your profile details here.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex flex-col items-center gap-3 p-4 rounded shadow-md sm:w-1/2 text-center border-1 border-gray-600">
+            <div>
+              <h2 className="font-semibold text-white text-3xl">
+                {profile?.fullname || "Loading..."}
+              </h2>
+              <span className="text-base text-green-400">
+                {profile?.account_type || "User"}{" "}
+              </span>
+            </div>
 
-          <div className="w-48 h-48 rounded-full overflow-hidden border-[5px] border-gray-300">
-            <img
-              src={assets.cartoon}
-              alt=""
-              className="w-full h-full object-cover"
-            />
+            <div className="w-48 h-48 rounded-full overflow-hidden border-[5px] border-gray-300">
+              <img
+                src={assets.cartoon}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-3 p-4 rounded shadow-md w-1/2 border-2">
-          <div>
-            <h2 className="font-semibold text-white text-2xl">
-              Bio & Other Details
-            </h2>
-          </div>
+          <div className="flex flex-col gap-3 p-4 rounded shadow-md w-full sm:w-1/2 border-1 border-gray-600">
+            <div className="flex  justify-between mb-6">
+              <h2 className="font-semibold text-white text-lg">
+                Bio & other details
+              </h2>
+              <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-green-900">
+                <span className="block w-2 h-2 rounded-full bg-green-400"></span>
+              </span>
+            </div>
+            <form action="" className="flex flex-col gap-4">
+              {/* Full Name and Email */}
+              <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-8 w-full px-3 py-2">
+                <div className="sm:w-1/2">
+                  <h2 className="text-gray-400">Full Name</h2>
+                  <p className="text-white">
+                    {profile?.fullname || "Loading ..."}
+                  </p>
+                </div>
+                <div className="sm:w-1/2">
+                  <h2 className="text-gray-400">Email Address</h2>
+                  <p className="text-white">{profile?.email || "Loading..."}</p>
+                </div>
+              </div>
 
-          <div>
-            <h2 className="text-gray-400">Full Name</h2>
-            <p className="text-white">{profile?.fullname || "Loading ..."}</p>
-          </div>
-          <div>
-            <h2 className="text-gray-400">Email Address</h2>
-            <p className="text-white">{profile?.email || "Loading..."}</p>
-          </div>
-          <div>
-            <h2 className="text-gray-400">Account Type</h2>
-            <p className="text-white">
-              {profile?.account_type || "Loading"}
-            </p>{" "}
-            {/* Ensure this matches your column name */}
+              {/* Account Type and Registration Date */}
+              <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-8 w-full px-3 py-2 rounded">
+                <div className="sm:w-1/2">
+                  <h2 className="text-gray-400">Account Type</h2>
+                  <p className="text-white">
+                    {profile?.account_type || "Loading"}
+                  </p>
+                </div>
+                <div className="sm:w-1/2">
+                  <h2 className="text-gray-400">Registration Date</h2>
+                  <p className="text-white">
+                    {profile?.created_at
+                      ? new Date(profile.created_at).toLocaleDateString()
+                      : "Loading"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-center">
+                <button className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 md:w-1/2 w-full rounded text-white py-2 px-3 cursor-pointer">
+                  Edit Profile
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
