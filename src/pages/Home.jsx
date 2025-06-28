@@ -5,9 +5,7 @@ import { useState, useEffect, Suspense, lazy } from "react";
 import useFetchCoins from "../hooks/UseFetchCoins";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import { Profile } from "./Profile";
+import { Star } from "lucide-react";
 
 // Lazy load heavy components
 const Sidebar = lazy(() => import("../components/Sidebar"));
@@ -78,6 +76,8 @@ const Home = () => {
       </div>
     );
   }
+
+
 
   return (
     <div className="min-h-screen transition-colors bg-gray-900 font-primary">
@@ -209,10 +209,9 @@ const Home = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Market Cap
                       </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                      <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Add to Watchlist
                       </th>
-
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
@@ -228,9 +227,6 @@ const Home = () => {
                   </tbody>
                 </table>
               </div>{" "}
-              {/* <Signup /> */}
-              {/* <Signin /> */}
-              {/* <Profile /> */}
             </Suspense>
           </div>
 

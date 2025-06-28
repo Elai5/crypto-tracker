@@ -41,7 +41,7 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                 </li>
                 <li className="text-white font-bold">
                   <NavLink
-                    to="/"
+                    to="/watchlist"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     Watchlist
