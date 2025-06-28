@@ -29,7 +29,7 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
+    fullname: "",
     password: "",
     confirmPassword: "",
     termsAccepted: false,
@@ -58,7 +58,11 @@ const Signup = () => {
       return;
     }
 
-    const { error } = await signUp(formData.email, formData.password);
+    const { data, error } = await signUp(
+      formData.email,
+      formData.password,
+      formData.fullname
+    );
 
     if (error) {
       alert("signup failed: " + error.message);
@@ -162,10 +166,10 @@ const Signup = () => {
 
                 <div className="group">
                   <label
-                    htmlFor="username"
+                    htmlFor="fullname"
                     className="block text-sm font-medium text-gray-200 mb-2"
                   >
-                    Username
+                    Full Name
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -173,11 +177,11 @@ const Signup = () => {
                     </div>
                     <input
                       type="text"
-                      name="username"
-                      id="username"
-                      value={formData.username}
+                      name="fullname"
+                      id="fullname"
+                      value={formData.fullname}
                       onChange={handleInputChange}
-                      placeholder="Please enter your username"
+                      placeholder="Please enter your fullname"
                       required
                       className="w-full pl-12 pr-4 py-3 bg-gray-700/70 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />

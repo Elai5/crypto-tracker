@@ -29,12 +29,40 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const signUp = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    return { data, error };
+  const signUp = async (email, password, fullname) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        console.error("Signup error:", error);
+        return { data: null, error };
+      }
+
+      const userId = data.user.id;
+
+      const { data: profileData, error: profileError } = await supabase
+        .from("Profile")
+        .insert([
+          {
+            id: userId,
+            fullname: fullname,
+            email: email,
+          },
+        ]);
+
+      if (profileError) {
+        console.error("Profile insert error:", profileError);
+        return { data: null, error: profileError };
+      }
+
+      return { data: { user: data.user, profile: profileData }, error: null };
+    } catch (err) {
+      console.error("Unexpected error occurred:", err);
+      return { data: null, error: err };
+    }
   };
 
   const signIn = async (email, password) => {
