@@ -3,7 +3,7 @@
 import React from "react";
 
 const Watchlist = () => {
-  const watchlistCoins = []; // Start with an empty array
+  const watchlistCoins = [];
 
   return (
     <div className="min-h-screen bg-gray-900 p-4 text-white pt-30">

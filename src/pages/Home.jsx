@@ -45,7 +45,14 @@ const Home = () => {
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  // logic for changimg star icon
+  const [watchlist, setWatchlist] = useState([]);
+  const handleAddOnWatchlist = (coin) => {
+    if (!watchlist.find((c) => c.id === coin.id)) {
+      setWatchlist((prev) => [...prev, coin]);
+      console.log("Added watchlist:", coin.name);
+    }
+  };
   const topCoins = filteredCoins.slice(0, 20);
 
   if (loading) {
@@ -76,8 +83,6 @@ const Home = () => {
       </div>
     );
   }
-
-
 
   return (
     <div className="min-h-screen transition-colors bg-gray-900 font-primary">
@@ -220,8 +225,10 @@ const Home = () => {
                         key={coin.id}
                         coin={coin}
                         onClick={handleCoinSelect}
+                        onAddToWatchlist={handleAddOnWatchlist}
                         darkMode={true}
                         isSelected={selectedCoin?.id === coin.id}
+                        isInWatchlist={watchlist.some((c) => c.id === coin.id)}
                       />
                     ))}
                   </tbody>

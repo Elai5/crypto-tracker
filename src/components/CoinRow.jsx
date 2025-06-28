@@ -9,55 +9,9 @@ const CoinRow = ({
   onClick,
   darkMode,
   isSelected,
-  toggleWatchlist,
-  watchlist,
+  onAddToWatchlist,
+  isInWatchlist,
 }) => {
-  const [isInWatchlist, setIsInWatchlist] = useState(false);
-
-  useEffect(() => {
-    const checkWatchlist = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from("watchlist")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("coin_id", coin.id)
-        .single();
-
-      setIsInWatchlist(!!data);
-    };
-
-    checkWatchlist();
-  }, [coin.id]);
-
-  const handleWatchlistToggle = async (coinId) => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
-
-    if (isInWatchlist) {
-      await supabase
-        .from("watchlist")
-        .delete()
-        .eq("user_id", user.id)
-        .eq("coin_id", coinId);
-    } else {
-      await supabase.from("watchlist").insert([
-        {
-          user_id: user.id,
-          coin_id: coinId,
-        },
-      ]);
-    }
-
-    setIsInWatchlist(!isInWatchlist);
-  };
-
   const formatPrice = (price) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -178,12 +132,21 @@ const CoinRow = ({
         {formatMarketCap(coin.market_cap)}
       </td>
       <td className="px-6 py-4">
-        <button onClick={() => handleWatchlistToggle(coin.id)}>
-          {isInWatchlist ? (
-            <Star className="text-yellow-400 fill-yellow-400 cursor-pointer" />
-          ) : (
-            <Star className="text-gray-400 hover:text-yellow-300 cursor-pointer" />
-          )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onAddToWatchlist(coin);
+          }}
+        >
+          <Star
+            fill={isInWatchlist ? "currentColor" : "none"}
+            stroke="currentColor"
+            className={`w-5 h-5 transition-colors duration-200 ${
+              isInWatchlist
+                ? "text-yellow-400"
+                : "text-gray-400 hover:text-yellow-300"
+            }`}
+          />
         </button>
       </td>
     </tr>
