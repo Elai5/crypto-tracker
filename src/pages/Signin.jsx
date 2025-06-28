@@ -178,6 +178,7 @@ const Signin = () => {
 
               <button
                 type="submit"
+                // onClick={handleLogin}
                 className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
               >
                 <UserPlus size={20} />
@@ -202,7 +203,7 @@ const Signin = () => {
                   Don't have an account?
                   <button
                     type="button"
-                    className="text-blue-400 px-1 hover:text-blue-300 font-medium transitions-colors underline bg-transparent border-none cursor-pointer"
+                    className="text-blue-400 px-1 hover:text-blue-300 font-medium transition-colors underline bg-transparent border-0 cursor-pointer"
                   >
                     {" "}
                     Create one here
