@@ -46,7 +46,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert("Form submitted!");
-    console.log("handleSubmit triggered", formData);
+
+    console.log("Starting signup with:", {
+      email: formData.email,
+      fullname: formData.fullname,
+    });
 
     if (!formData.termsAccepted) {
       alert("Please accept the Terms and Conditions");
@@ -65,8 +69,11 @@ const Signup = () => {
     );
 
     if (error) {
+      console.error("Full error object:", error);
       alert("signup failed: " + error.message);
     } else {
+      console.log("Success! User created:", data);
+
       alert("Signup succesfully. Please login");
       navigate("/signin");
     }
@@ -95,7 +102,7 @@ const Signup = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
+      <div className="flex items-center justify-center min-h-screen p-4 relative z-10 mt-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">

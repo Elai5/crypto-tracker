@@ -11,16 +11,18 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = supabase.auth.getSession();
-
-    session.then(({ data }) => {
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
       setUser(data?.session?.user || null);
       setLoading(false);
-    });
+    };
+
+    getSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user || null);
+        setLoading(false);
       }
     );
 
@@ -43,11 +45,12 @@ export const AuthProvider = ({ children }) => {
 
       const userId = data.user.id;
 
+      // Insert profile with user_id instead of id
       const { data: profileData, error: profileError } = await supabase
-        .from("Profile")
+        .from("profile")
         .insert([
           {
-            id: userId,
+            user_id: userId, // Use user_id to link to the auth user
             fullname: fullname,
             email: email,
           },
