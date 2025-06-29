@@ -215,11 +215,16 @@ const Signin = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  // onClick={handleLogin}
-                  className="w-full flex items-center justify-center gap-3 py-4 px-6 text-sm md:text-base bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
+                  className="w-full flex items-center justify-center gap-3 py-4 px-6 text-sm md:text-base bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500/50 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? (
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <div className="flex items-center justify-center">
+                      <div
+                        className="animate-spin inline-block w-5 h-5 border-[3px] border-white border-t-transparent rounded-full"
+                        role="status"
+                        aria-label="Loading"
+                      />
+                    </div>
                   ) : (
                     <>
                       {isSignUp ? <UserPlus size={20} /> : <User size={20} />}
