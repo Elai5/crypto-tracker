@@ -1,11 +1,10 @@
 /** @format */
 
-import React from "react";
-import { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import useFetchCoins from "../hooks/UseFetchCoins";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Star } from "lucide-react";
+import { supabase } from "../supabaseClient";
 
 // Lazy load heavy components
 const Sidebar = lazy(() => import("../components/Sidebar"));
@@ -24,6 +23,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCoin, setSelectedCoin] = useState(null);
   const { coins, loading, error } = useFetchCoins();
+  const [watchlist, setWatchlist] = useState([]);
 
   // Set Bitcoin as default coin when coins are loaded
   useEffect(() => {
@@ -45,14 +45,28 @@ const Home = () => {
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  // logic for changimg star icon
-  const [watchlist, setWatchlist] = useState([]);
-  const handleAddOnWatchlist = (coin) => {
-    if (!watchlist.find((c) => c.id === coin.id)) {
+
+  const handleAddOnWatchlist = async (coin) => {
+    const { user } = await supabase.auth.getUser();
+    console.log("Current User:", user);
+    if (!user) {
+      alert("You need to be logged in to add coins to your watchlist");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("watchlist")
+      .insert([{ user_id: user.id, coin_id: coin.id }]);
+
+    if (error) {
+      console.error("Error adding to watchlist:", error);
+    } else {
+      console.log("Added to watchlist:", coin.name);
+      // Update the watchlist state to include the new coin
       setWatchlist((prev) => [...prev, coin]);
-      console.log("Added watchlist:", coin.name);
     }
   };
+
   const topCoins = filteredCoins.slice(0, 20);
 
   if (loading) {

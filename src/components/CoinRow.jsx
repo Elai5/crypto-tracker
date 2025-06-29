@@ -146,7 +146,7 @@ const CoinRow = ({
           <Star
             fill={isInWatchlist ? "currentColor" : "none"}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="w-5 h-5 cursor-pointer"
           />
         </button>
       </td>
