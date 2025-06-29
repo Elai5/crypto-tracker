@@ -87,7 +87,7 @@ const Signup = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
       </div>
       {/* crypto coins for display */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* <div className="absolute inset-0 pointer-events-none">
         <div className="hidden md:flex absolute top-50 left-35 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
         </div>
@@ -100,7 +100,7 @@ const Signup = () => {
         <div className="hidden md:flex absolute bottom-20 right-40 text-purple-400 opacity-20 animate-bounce animation-delay-4000">
           <Star size={18} />
         </div>
-      </div>
+      </div> */}
 
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10 pt-20 md:mt-4">
         <div className="w-full max-w-lg">

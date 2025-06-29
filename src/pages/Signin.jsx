@@ -69,18 +69,18 @@ const Signin = () => {
       </div>
       {/* Floating icons on display */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-70 left-40 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
+        {/* <div className="absolute top-70 left-100 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
         </div>
-        <div className="absolute top-70 right-45 text-green-400 opacity-20 animate-bounce animation-delay-3000">
+        <div className="absolute top-70 right-100 text-green-400 opacity-20 animate-bounce animation-delay-3000">
           <TrendingUp size={20} />
         </div>
-        <div className="absolute bottom-50 left-40 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
+        <div className="absolute bottom-50 left-100 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
           <Shield size={22} />
         </div>
-        <div className="absolute bottom-50 right-40 text-purple-400 opacity-20 animate-bounce animate-delay-4000">
+        <div className="absolute bottom-50 right-80 text-purple-400 opacity-20 animate-bounce animate-delay-4000">
           <Star size={18} />
-        </div>
+        </div> */}
       </div>
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div className="w-full max-w-md">
