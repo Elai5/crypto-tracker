@@ -5,6 +5,7 @@ import useFetchCoins from "../hooks/UseFetchCoins";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { supabase } from "../supabaseClient";
+import { useUser } from "../context/UserContext";
 
 // Lazy load heavy components
 const Sidebar = lazy(() => import("../components/Sidebar"));
@@ -33,7 +34,22 @@ const Home = () => {
     }
   }, [coins, selectedCoin]);
 
-  // Updated handleCoinSelect function
+  // Fetch watchlist on component mount
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      const { user } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from("watchlist")
+          .select("coin_id")
+          .eq("profile_id", user.id);
+        setWatchlist(data.map((item) => item.coin_id));
+      }
+    };
+
+    fetchWatchlist();
+  }, []);
+
   const handleCoinSelect = (coin) => {
     setSelectedCoin(coin);
     // Clear search term when a coin is selected
@@ -47,23 +63,67 @@ const Home = () => {
   );
 
   const handleAddOnWatchlist = async (coin) => {
-    const { user } = await supabase.auth.getUser();
-    console.log("Current User:", user);
+    console.log("=== DEBUGING WATCHLIST AUTH ====");
+
+    try {
+      const authResponse = await supabase.auth.getUser();
+      console.log("Full auth response:", authResponse);
+      console.log("Auth esponse data:", authResponse.data);
+      console.log("Auth response error:", authResponse.error);
+
+      const {
+        data: { user },
+        error: authError,
+      } = authResponse;
+      console.log("Destructed user:", user);
+      console.log("Destructed error:", authError);
+
+      // check session
+      const sessionResponse = await supabase.auth.getSession();
+      console.log("Session response:", sessionResponse);
+    } catch (error) {
+      console.error("Error in auth check:", error);
+    }
+    console.log("=== END DEBUG ===");
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    console.log("User from supabase.auth.getUser():", user);
+
+    //check session to determin auth error
+    const { data: session } = await supabase.auth.getSession();
+    console.log("Session:", session);
+
     if (!user) {
       alert("You need to be logged in to add coins to your watchlist");
       return;
     }
+    //get you user profile and ID
+    const { data: profile, error: profileError } = await supabase
+      .from("profile")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
 
+    if (profileError || !profile) {
+      alert("Error finding your profile");
+      return;
+    }
+
+    //insert items to your watchlist table
     const { error } = await supabase
       .from("watchlist")
-      .insert([{ user_id: user.id, coin_id: coin.id }]);
+      .insert([{ profile_id: profile.id, coin_id: coin.id }]);
 
     if (error) {
       console.error("Error adding to watchlist:", error);
+      alert("Failed to add to watchlist. Please try again.");
     } else {
       console.log("Added to watchlist:", coin.name);
       // Update the watchlist state to include the new coin
-      setWatchlist((prev) => [...prev, coin]);
+      setWatchlist((prev) => [...prev, coin.id]);
+      alert(`${coin.name} has been added to your watchlist!`); // User feedback
     }
   };
 
@@ -204,6 +264,18 @@ const Home = () => {
                           </div>
                         </div>
                       </div>
+                      <button
+                        onClick={() => handleAddOnWatchlist(coin)}
+                        className={`mt-2 p-2 rounded-full ${
+                          watchlist.includes(coin.id)
+                            ? "bg-yellow-500"
+                            : "bg-gray-600"
+                        } text-white`}
+                      >
+                        {watchlist.includes(coin.id)
+                          ? "★ Added"
+                          : "☆ Add to Watchlist"}
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -245,12 +317,12 @@ const Home = () => {
                         onAddToWatchlist={handleAddOnWatchlist}
                         darkMode={true}
                         isSelected={selectedCoin?.id === coin.id}
-                        isInWatchlist={watchlist.some((c) => c.id === coin.id)}
+                        isInWatchlist={watchlist.includes(coin.id)}
                       />
                     ))}
                   </tbody>
                 </table>
-              </div>{" "}
+              </div>
             </Suspense>
           </div>
 

@@ -69,26 +69,26 @@ const Signin = () => {
       </div>
       {/* Floating icons on display */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
+        <div className="absolute top-70 left-40 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
         </div>
-        <div className="absolute top-40 right-32 text-green-400 opacity-20 animate-bounce animation-delay-3000">
+        <div className="absolute top-70 right-45 text-green-400 opacity-20 animate-bounce animation-delay-3000">
           <TrendingUp size={20} />
         </div>
-        <div className="absolute bottom-32 left-40 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
+        <div className="absolute bottom-50 left-40 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
           <Shield size={22} />
         </div>
-        <div className="absolute bottom-20 right-20 text-purple-400 opacity-20 animate-bounce animate-delay-4000">
+        <div className="absolute bottom-50 right-40 text-purple-400 opacity-20 animate-bounce animate-delay-4000">
           <Star size={18} />
         </div>
       </div>
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
               <Zap className="text-white" size={32} />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-xl font-bold text-white">
               {isSignUp ? "Join KiproCurrency" : "Welcome Back"}
             </h1>
             <p className="text-gray-300">

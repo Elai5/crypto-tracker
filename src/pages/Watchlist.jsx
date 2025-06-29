@@ -23,10 +23,23 @@ const Watchlist = () => {
         }
 
         if (user) {
-          const { data, error } = await supabase
+          // geting user profile id
+          const { data: profile, error: profileError } = await supabase
             .from("profile")
             .select("id")
-            .eq("user_id", user.id);
+            .eq("user_id", user.id)
+            .single();
+
+          if (profileError) {
+            throw new Error("Error finding profile:" + profileError.message);
+          }
+
+          //if true, then get watchlist item
+
+          const { data, error } = await supabase
+            .from("watchlist")
+            .select("coin_id")
+            .eq("profile_id", profile.id);
 
           if (error) {
             throw new Error("Error fetching watchlist: " + error.message);
@@ -89,7 +102,19 @@ const Watchlist = () => {
       } = await supabase.auth.getUser();
 
       if (authError || !user) {
-        console.error("User not authenticated");
+        alert("You need to be logged in to modify your watchlist.");
+        return;
+      }
+
+      //get user profile
+      const { data: profile, error: profileError } = await supabase
+        .from("profile")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (profileError || !profile) {
+        alert("Error finding your profile");
         return;
       }
 
@@ -100,31 +125,38 @@ const Watchlist = () => {
         const { error } = await supabase
           .from("watchlist")
           .delete()
-          .eq("user_id", user.id)
+          .eq("profile_id", profile.id)
           .eq("coin_id", coinId);
 
         if (error) {
           console.error("Error removing from watchlist:", error);
+          alert("Failed to remove from watchlist. Please try again.");
         } else {
           const updatedWatchlist = watchlist.filter((id) => id !== coinId);
           setWatchlist(updatedWatchlist);
           setCoinDetails(coinDetails.filter((coin) => coin.id !== coinId));
+          alert("Coin removed from watchlist.");
         }
       } else {
         // Add to watchlist
         const { error } = await supabase
           .from("watchlist")
-          .insert({ user_id: user.id, coin_id: coinId });
+          .insert({ profile_id: profile.id, coin_id: coinId });
 
         if (error) {
           console.error("Error adding to watchlist:", error);
+          alert("Failed to add to watchlist. Please try again.");
         } else {
           setWatchlist([...watchlist, coinId]);
-          // Note: You might want to refetch coin details here to get the new coin's data
+          alert("Coin added to watchlist!");
+
+          // refetch coin details for new coin
+          await fetchCoinDetails([...watchlist, coinId]);
         }
       }
     } catch (error) {
       console.error("Error toggling watchlist:", error);
+      alert("An error occurred while updating your watchlist.");
     }
   };
 
@@ -150,15 +182,15 @@ const Watchlist = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 p-4 text-white pt-20">
+    <div className="min-h-screen bg-gray-900 p-4 text-white pt-30">
       <h1 className="text-2xl font-semibold mb-4">My Watchlist</h1>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+        <table className="w-full border border-gray-500 rounded-md overflow-hidden">
           <thead className="bg-gray-800">
             <tr>
-              <th className="px-3 bg-red-400 py-3 text-left text-sm font-medium text-gray-400"></th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+              {/* <th className="px-3 bg-red-400 py-3 text-left text-sm font-medium text-gray-400"></th> */}
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
                 Coin
               </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
@@ -195,15 +227,6 @@ const Watchlist = () => {
                   key={coin.id}
                   className="hover:bg-gray-800/50 transition-colors"
                 >
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => toggleWatchlist(coin.id)}
-                      className="text-yellow-400 hover:text-yellow-300 transition-colors text-lg"
-                      title="Remove from watchlist"
-                    >
-                      ⭐
-                    </button>
-                  </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       {coin.image && (
@@ -245,6 +268,15 @@ const Watchlist = () => {
                   </td>
                   <td className="px-6 py-4">
                     ${formatNumber(coin.market_cap)}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => toggleWatchlist(coin.id)}
+                      className="text-yellow-400 hover:text-yellow-300 transition-colors text-lg"
+                      title="Remove from watchlist"
+                    >
+                      ⭐
+                    </button>
                   </td>
                 </tr>
               ))

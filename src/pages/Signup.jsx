@@ -79,40 +79,43 @@ const Signup = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-gray-900 relative overflow-hidden pt-20">
+    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
       {/* subtle background animation */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
       </div>
       {/* crypto coins for display */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-20 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
+        <div className="absolute top-50 left-35 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
         </div>
-        <div className="absolute top-40 right-32 text-green-400 opacity-20 animate-bounce animation-delay-3000">
+        <div className="absolute top-50 right-40 text-green-400 opacity-20 animate-bounce animation-delay-3000">
           <TrendingUp size={20} />
         </div>
-        <div className="absolute bottom-32 left-40 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
+        <div className="absolute bottom-32 left-35 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
           <Shield size={22} />
         </div>
-        <div className="absolute bottom-20 right-20 text-purple-400 opacity-20 animate-bounce animation-delay-4000">
+        <div className="absolute bottom-20 right-40 text-purple-400 opacity-20 animate-bounce animation-delay-4000">
           <Star size={18} />
         </div>
       </div>
 
       <div className="flex items-center justify-center min-h-screen p-4 relative z-10 mt-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
+        <div className="w-full max-w-lg">
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
               <Zap className="text-white" size={32} />
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">
-              {" "}
-              Join KiproCurrency
+            <h1 className="text-xl font-bold text-white">
+              {isSignUp ? "Join KiproCurrency" : "Welcome Back"}
             </h1>
-            <p className="text-gray-300">Start your crypto journey today</p>
+            <p className="text-gray-300">
+              {isSignUp
+                ? "Start your crpto journey today"
+                : "Sign in to your account"}
+            </p>
           </div>
 
           {/* form container */}

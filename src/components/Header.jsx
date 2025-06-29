@@ -85,19 +85,19 @@ const Header = ({ searchTerm, onSearchChange, coins = [], onCoinSelect }) => {
                       </li>
                     </>
                   )}
-                  {/* Show Join Now only when user is NOT logged in */}
+                  {/* Show Market link only when user is NOT logged in */}
                   {!user && (
                     <li className="text-white font-bold">
-                      <a
-                        href="#market"
+                      <NavLink
+                        to="#market" // This will still work for scrolling to the section
                         className={({ isActive }) =>
                           `${
-                            isActive ? "text-blue-300" : " hover:text-blue-300"
-                          }  text-white  transition-colors`
+                            isActive ? "text-blue-300" : "hover:text-blue-300"
+                          } text-white transition-colors`
                         }
                       >
                         Market
-                      </a>
+                      </NavLink>
                     </li>
                   )}
 
