@@ -62,10 +62,10 @@ const Signin = () => {
   return (
     <div className="min-h-screen bg-gray-900 relative overflow-hidden pt-20">
       {/* subtle background animation */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter-blur-xl opacity-10 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-mutiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-mutiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
+      <div className="hidden md:flex absolute inset-0 overflow-hidden">
+        <div className="hidden md:flex absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter-blur-xl opacity-10 animate-pulse"></div>
+        <div className="hidden md:flex absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-mutiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
+        <div className="hidden md:flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500 rounded-full mix-blend-mutiply filter blur-xl opacity-5 animate-pulse animation-delay-4000"></div>
       </div>
       {/* Floating icons on display */}
       <div className="absolute inset-0 pointer-events-none">
@@ -105,7 +105,7 @@ const Signin = () => {
             <div className="flex gap-2 p-1 bg-gray-700/50 rounded-xl">
               <Link
                 to="/signin"
-                className={`flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-sm px-4 py-3 transition-all duration-300 ${
+                className={`flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-xs md:text-sm px-4 py-3 transition-all duration-300 ${
                   isSignin
                     ? "text-white bg-blue-500 shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-gray-600/50"
@@ -116,14 +116,14 @@ const Signin = () => {
               </Link>
               <Link
                 to="/signup"
-                className={`flex-1 flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-4 py-3 ${
+                className={`flex-1 flex items-center justify-center gap-2 font-medium rounded-lg text-xs md:text-sm px-4 py-3 ${
                   isSignUp
                     ? "text-white bg-gradient-to-r from-blue-500 to-indigo shadow-lg"
                     : "text-gray-300 hover:text-white hover:bg-gray-600/50"
                 }`}
               >
                 <UserPlus size={18} />
-                Sign Up
+                SignUp
               </Link>
             </div>
 
@@ -157,7 +157,7 @@ const Signin = () => {
                       onChange={handleInputChange}
                       placeholder="Enter your email"
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ const Signin = () => {
                       onChange={handleInputChange}
                       placeholder="Enter your password"
                       required
-                      className="w-full pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                     <button
                       type="button"
@@ -216,7 +216,7 @@ const Signin = () => {
                   type="submit"
                   disabled={loading}
                   // onClick={handleLogin}
-                  className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
+                  className="w-full flex items-center justify-center gap-3 py-4 px-6 text-sm md:text-base bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
                 >
                   {loading ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -234,7 +234,7 @@ const Signin = () => {
                     <Shield size={16} />
                     <span className="font-medium"> Secure & Encrypted</span>
                   </div>
-                  <p className="text-gray-300 txt-xs mt-1">
+                  <p className="text-gray-300 text-xs mt-1">
                     {" "}
                     Your data is protected with bank-level encryption
                   </p>

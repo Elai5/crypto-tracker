@@ -88,21 +88,21 @@ const Signup = () => {
       </div>
       {/* crypto coins for display */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-50 left-35 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
+        <div className="hidden md:flex absolute top-50 left-35 text-blue-400 opacity-20 animate-bounce animation-delay-1000">
           <Zap size={24} />
         </div>
-        <div className="absolute top-50 right-40 text-green-400 opacity-20 animate-bounce animation-delay-3000">
+        <div className="hidden md:flex absolute top-50 right-40 text-green-400 opacity-20 animate-bounce animation-delay-3000">
           <TrendingUp size={20} />
         </div>
-        <div className="absolute bottom-32 left-35 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
+        <div className="hidden md:flex absolute bottom-32 left-35 text-indigo-400 opacity-20 animate-bounce animation-delay-2000">
           <Shield size={22} />
         </div>
-        <div className="absolute bottom-20 right-40 text-purple-400 opacity-20 animate-bounce animation-delay-4000">
+        <div className="hidden md:flex absolute bottom-20 right-40 text-purple-400 opacity-20 animate-bounce animation-delay-4000">
           <Star size={18} />
         </div>
       </div>
 
-      <div className="flex items-center justify-center min-h-screen p-4 relative z-10 mt-4">
+      <div className="flex items-center justify-center min-h-screen p-4 relative z-10 pt-20 md:mt-4">
         <div className="w-full max-w-lg">
           <div className="text-center mb-4">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
@@ -126,7 +126,7 @@ const Signup = () => {
               <div className="flex gap-2 p-1 bg-gray-700/50 rounded-xl">
                 <Link
                   to="/signin"
-                  className={`flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-sm px-4 py-3 transition-all duration-300 ${
+                  className={`flex-1 flex items-center justify-center gap-2 text-gray-400 hover:text-white font-medium rounded-lg text-xs md:text-sm px-4 py-3 transition-all duration-300 ${
                     isSignin
                       ? "text-white bg-gradient-to-r from-blue-500 to-indigo shadow-lg"
                       : "text-gray-400 hover:text-white hover:bg-gray-600/50"
@@ -137,14 +137,14 @@ const Signup = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className={`flex-1 flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-4 py-3 ${
+                  className={`flex-1 flex items-center justify-center gap-2 font-medium rounded-lg text-xs md:text-sm px-4 py-3 ${
                     isSignUp
-                      ? "text-white bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg"
+                      ? "text-white bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg text-xs"
                       : "text-gray-400 hover:text-white hover:bg-gray-600/50"
                   }`}
                 >
                   <UserPlus size={18} />
-                  Sign Up
+                  SignUp
                 </Link>
               </div>
 
@@ -167,9 +167,9 @@ const Signup = () => {
                       id="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="Enter your email"
+                      placeholder="example@gmail.com"
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base pl-12 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                   </div>
                 </div>
@@ -191,9 +191,9 @@ const Signup = () => {
                       id="fullname"
                       value={formData.fullname}
                       onChange={handleInputChange}
-                      placeholder="Please enter your fullname"
+                      placeholder="James Smith"
                       required
-                      className="w-full pl-12 pr-4 py-3 bg-gray-700/70 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base  pl-12 pr-4 py-3 bg-gray-700/70 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                   </div>
                 </div>
@@ -215,9 +215,9 @@ const Signup = () => {
                       id="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      placeholder="Create a password"
+                      placeholder="Create Password"
                       required
-                      className="w-full pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                     <button
                       aria-label={
@@ -249,9 +249,9 @@ const Signup = () => {
                       id="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      placeholder="Please Confirm your password"
+                      placeholder="Confirm Password"
                       required
-                      className="w-full pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
+                      className="w-full text-sm md:text-base pl-12 pr-12 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:bg-gray-700/70"
                     />
                     <button
                       type="button"
@@ -297,7 +297,7 @@ const Signup = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
+                  className="w-full flex items-center justify-center gap-3 text-sm md:text-base py-4 px-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-4  focus:ring-blue-500/50"
                 >
                   <UserPlus size={20} />
                   Create Account
@@ -309,7 +309,7 @@ const Signup = () => {
                     <Shield size={16} />
                     <span className="font-medium"> Secure & Encrypted</span>
                   </div>
-                  <p className="text-gray-300 txt-xs mt-1">
+                  <p className="text-gray-300 text-xs mt-1">
                     {" "}
                     Your data is protected with bank-level encryption
                   </p>
