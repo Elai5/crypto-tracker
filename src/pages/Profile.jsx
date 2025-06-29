@@ -67,8 +67,8 @@ export const Profile = () => {
   }
 
   return (
-    <div className="bg-gray-900 p-6 mt-20 min-h-screen">
-      <div className="px-20 pt-5">
+    <div className="bg-gray-900 p-6 pt-20 min-h-screen">
+      <div className="md:px-20 pt-5">
         <h1 className="text-3xl font-bold mb-2 text-white">Profile</h1>
         <p className="mb-4 text-gray-500">
           View all your profile details here.
@@ -76,15 +76,15 @@ export const Profile = () => {
         <div className="flex flex-col sm:flex-row gap-5">
           <div className="flex flex-col items-center gap-3 p-4 rounded shadow-md sm:w-1/2 text-center border-1 border-gray-600">
             <div>
-              <h2 className="font-semibold text-white text-3xl">
+              <h2 className="font-semibold text-white text-xl md:text-3xl">
                 {profile?.fullname || "Loading..."}
               </h2>
-              <span className="text-base text-green-400">
+              <span className="text-green-400  text-sm md:text-base">
                 {profile?.account_type || "User"}{" "}
               </span>
             </div>
 
-            <div className="w-48 h-48 rounded-full overflow-hidden border-[5px] border-gray-300">
+            <div className="w-24 h-24 md:w-48 md:h-48 rounded-full overflow-hidden border-[2px] md:border-[5px] border-gray-300">
               <img
                 src={assets.cartoon}
                 alt=""
@@ -101,32 +101,38 @@ export const Profile = () => {
                 <span className="block w-2 h-2 rounded-full bg-green-400"></span>
               </span>
             </div>
-            <form action="" className="flex flex-col gap-4">
+            <form action="" className="flex flex-col gap-1 md:gap-4 ">
               {/* Full Name and Email */}
-              <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-8 w-full px-3 py-2">
+              <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-8 w-full px-3 md:py-2">
                 <div className="sm:w-1/2">
-                  <h2 className="text-gray-400">Full Name</h2>
-                  <p className="text-white">
+                  <h2 className="text-white text-lg font-primary">Full Name</h2>
+                  <p className="text-gray-400 text-sm md:text-base font-secondary">
                     {profile?.fullname || "Loading ..."}
                   </p>
                 </div>
                 <div className="sm:w-1/2">
-                  <h2 className="text-gray-400">Email Address</h2>
-                  <p className="text-white">{profile?.email || "Loading..."}</p>
+                  <h2 className="text-white font-primary text-lg">
+                    Email Address
+                  </h2>
+                  <p className="text-gray-400 text-sm md:text-base font-secondary">
+                    {profile?.email || "Loading..."}
+                  </p>
                 </div>
               </div>
 
               {/* Account Type and Registration Date */}
               <div className="flex flex-col sm:flex-row gap-y-2 sm:gap-x-8 w-full px-3 py-2 rounded">
                 <div className="sm:w-1/2">
-                  <h2 className="text-gray-400">Account Type</h2>
-                  <p className="text-white">
+                  <h2 className="text-white font-primary text-lg">
+                    Account Type
+                  </h2>
+                  <p className="text-gray-400 text-sm md:text-base font-secondary">
                     {profile?.account_type || "Loading"}
                   </p>
                 </div>
                 <div className="sm:w-1/2">
-                  <h2 className="text-gray-400">Registration Date</h2>
-                  <p className="text-white">
+                  <h2 className="text-white ">Registration Date</h2>
+                  <p className="text-gray-400 text-sm md:text-base font-secondary">
                     {profile?.created_at
                       ? new Date(profile.created_at).toLocaleDateString()
                       : "Loading"}

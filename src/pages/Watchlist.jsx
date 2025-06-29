@@ -189,30 +189,30 @@ const Watchlist = () => {
         <table className="w-full border border-gray-500 rounded-md overflow-hidden">
           <thead className="bg-gray-800">
             <tr>
-              {/* <th className="px-3 bg-red-400 py-3 text-left text-sm font-medium text-gray-400"></th> */}
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
                 Coin
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
                 Price
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400 hidden lg:table-cell">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400 hidden sm:table-cell">
                 1h
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
                 24h
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400 hidden xl:table-cell">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400 md:table-cell">
                 Volume
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400 hidden lg:table-cell">
                 Market Cap
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-400">
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-400 sm:table-cell">
                 Favorite
               </th>
             </tr>
           </thead>
+
           <tbody className="divide-y divide-gray-700">
             {watchlist.length === 0 ? (
               <tr>
@@ -227,7 +227,7 @@ const Watchlist = () => {
                   key={coin.id}
                   className="hover:bg-gray-800/50 transition-colors"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">
                     <div className="flex items-center">
                       {coin.image && (
                         <img
@@ -237,18 +237,20 @@ const Watchlist = () => {
                         />
                       )}
                       <div>
-                        <div className="font-medium">{coin.name}</div>
-                        <div className="text-sm text-gray-400 uppercase">
+                        <div className="font-medium text-xs md:text-xl">
+                          {coin.name}
+                        </div>
+                        <div className="hidden md:flex text-sm text-gray-400 uppercase">
                           {coin.symbol}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 font-medium">
+                  <td className="px-4 py-4 font-medium text-xs md:text-md">
                     ${coin.current_price?.toLocaleString() || "N/A"}
                   </td>
                   <td
-                    className={`px-6 py-4 hidden lg:table-cell ${getPercentageColor(
+                    className={`px-4 py-4 hidden lg:table-cell ${getPercentageColor(
                       coin.price_change_percentage_1h_in_currency
                     )}`}
                   >
@@ -257,19 +259,19 @@ const Watchlist = () => {
                     )}
                   </td>
                   <td
-                    className={`px-6 py-4 ${getPercentageColor(
+                    className={`px-4 py-4 text-xs md:text-xl ${getPercentageColor(
                       coin.price_change_percentage_24h
                     )}`}
                   >
                     {formatPercentage(coin.price_change_percentage_24h)}
                   </td>
-                  <td className="px-6 py-4 hidden xl:table-cell">
+                  <td className="px-4 py-4 text-xs md:text-xl hidden xl:table-cell">
                     ${formatNumber(coin.total_volume)}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4 text-xs md:text-xl">
                     ${formatNumber(coin.market_cap)}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 py-4">
                     <button
                       onClick={() => toggleWatchlist(coin.id)}
                       className="text-yellow-400 hover:text-yellow-300 transition-colors text-lg"

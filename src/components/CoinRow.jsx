@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
-import { Star, StarOff } from "lucide-react";
+import { Star } from "lucide-react";
 
 const CoinRow = ({
   coin,
@@ -59,7 +59,7 @@ const CoinRow = ({
           <img src={coin.image} alt={coin.name} className="w-8 h-8" />
           <div>
             <div
-              className={`font-medium ${
+              className={`hidden md:flex font-medium ${
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
@@ -125,13 +125,13 @@ const CoinRow = ({
         {formatVolume(coin.total_volume)}
       </td>
       <td
-        className={`px-6 py-4 font-medium ${
+        className={` px-6 py-4 font-medium ${
           darkMode ? "text-white" : "text-gray-900"
         }`}
       >
         {formatMarketCap(coin.market_cap)}
       </td>
-      <td className="px-6 py-4">
+      <td className=" hidden md:flex px-6 py-4">
         <button
           onClick={(e) => {
             e.stopPropagation();

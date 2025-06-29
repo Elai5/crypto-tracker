@@ -266,7 +266,7 @@ const Home = () => {
                       </div>
                       <button
                         onClick={() => handleAddOnWatchlist(coin)}
-                        className={`mt-2 p-2 rounded-full ${
+                        className={`hidden md:flex mt-2 p-2 rounded-full ${
                           watchlist.includes(coin.id)
                             ? "bg-yellow-500"
                             : "bg-gray-600"
@@ -303,7 +303,7 @@ const Home = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Market Cap
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                      <th className="hidden md:flex px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Add to Watchlist
                       </th>
                     </tr>
