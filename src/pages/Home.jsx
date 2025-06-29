@@ -1,13 +1,11 @@
 /** @format */
 
-import React from "react";
-import { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import useFetchCoins from "../hooks/UseFetchCoins";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Signup from "./Signup";
-import Signin from "./Signin";
-import { Profile } from "./Profile";
+import { supabase } from "../supabaseClient";
+import { useUser } from "../context/UserContext";
 
 // Lazy load heavy components
 const Sidebar = lazy(() => import("../components/Sidebar"));
@@ -26,6 +24,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCoin, setSelectedCoin] = useState(null);
   const { coins, loading, error } = useFetchCoins();
+  const [watchlist, setWatchlist] = useState([]);
 
   // Set Bitcoin as default coin when coins are loaded
   useEffect(() => {
@@ -35,7 +34,22 @@ const Home = () => {
     }
   }, [coins, selectedCoin]);
 
-  // Updated handleCoinSelect function
+  // Fetch watchlist on component mount
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      const { user } = await supabase.auth.getUser();
+      if (user) {
+        const { data } = await supabase
+          .from("watchlist")
+          .select("coin_id")
+          .eq("profile_id", user.id);
+        setWatchlist(data.map((item) => item.coin_id));
+      }
+    };
+
+    fetchWatchlist();
+  }, []);
+
   const handleCoinSelect = (coin) => {
     setSelectedCoin(coin);
     // Clear search term when a coin is selected
@@ -47,6 +61,71 @@ const Home = () => {
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleAddOnWatchlist = async (coin) => {
+    console.log("=== DEBUGING WATCHLIST AUTH ====");
+
+    try {
+      const authResponse = await supabase.auth.getUser();
+      console.log("Full auth response:", authResponse);
+      console.log("Auth esponse data:", authResponse.data);
+      console.log("Auth response error:", authResponse.error);
+
+      const {
+        data: { user },
+        error: authError,
+      } = authResponse;
+      console.log("Destructed user:", user);
+      console.log("Destructed error:", authError);
+
+      // check session
+      const sessionResponse = await supabase.auth.getSession();
+      console.log("Session response:", sessionResponse);
+    } catch (error) {
+      console.error("Error in auth check:", error);
+    }
+    console.log("=== END DEBUG ===");
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    console.log("User from supabase.auth.getUser():", user);
+
+    //check session to determin auth error
+    const { data: session } = await supabase.auth.getSession();
+    console.log("Session:", session);
+
+    if (!user) {
+      alert("You need to be logged in to add coins to your watchlist");
+      return;
+    }
+    //get you user profile and ID
+    const { data: profile, error: profileError } = await supabase
+      .from("profile")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (profileError || !profile) {
+      alert("Error finding your profile");
+      return;
+    }
+
+    //insert items to your watchlist table
+    const { error } = await supabase
+      .from("watchlist")
+      .insert([{ profile_id: profile.id, coin_id: coin.id }]);
+
+    if (error) {
+      console.error("Error adding to watchlist:", error);
+      alert("Failed to add to watchlist. Please try again.");
+    } else {
+      console.log("Added to watchlist:", coin.name);
+      // Update the watchlist state to include the new coin
+      setWatchlist((prev) => [...prev, coin.id]);
+      alert(`${coin.name} has been added to your watchlist!`); // User feedback
+    }
+  };
 
   const topCoins = filteredCoins.slice(0, 20);
 
@@ -111,7 +190,10 @@ const Home = () => {
           </div>
 
           {/* Optimized table rendering */}
-          <div className="rounded-lg overflow-hidden bg-gray-800 shadow-lg">
+          <div
+            className="rounded-lg overflow-hidden bg-gray-800 shadow-lg"
+            id="market"
+          >
             <div className="px-4 sm:px-6 py-4 border-b border-gray-700">
               <h3 className="text-lg font-semibold text-white">
                 Top Cryptocurrencies
@@ -182,6 +264,18 @@ const Home = () => {
                           </div>
                         </div>
                       </div>
+                      <button
+                        onClick={() => handleAddOnWatchlist(coin)}
+                        className={`hidden md:flex mt-2 p-2 rounded-full ${
+                          watchlist.includes(coin.id)
+                            ? "bg-yellow-500"
+                            : "bg-gray-600"
+                        } text-white`}
+                      >
+                        {watchlist.includes(coin.id)
+                          ? "★ Added"
+                          : "☆ Add to Watchlist"}
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -209,10 +303,9 @@ const Home = () => {
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Market Cap
                       </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+                      <th className="hidden md:flex px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
                         Add to Watchlist
                       </th>
-
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-700">
@@ -221,16 +314,15 @@ const Home = () => {
                         key={coin.id}
                         coin={coin}
                         onClick={handleCoinSelect}
+                        onAddToWatchlist={handleAddOnWatchlist}
                         darkMode={true}
                         isSelected={selectedCoin?.id === coin.id}
+                        isInWatchlist={watchlist.includes(coin.id)}
                       />
                     ))}
                   </tbody>
                 </table>
-              </div>{" "}
-              {/* <Signup /> */}
-              {/* <Signin /> */}
-              {/* <Profile /> */}
+              </div>
             </Suspense>
           </div>
 

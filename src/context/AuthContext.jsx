@@ -2,14 +2,16 @@
 
 import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "../supabaseClient"; // or wherever your Supabase client is
+import { supabase } from "../supabaseClient";
 
+// initiate a global state for authentication
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  //set my current user
   useEffect(() => {
     const getSession = async () => {
       const { data } = await supabase.auth.getSession();
@@ -19,6 +21,7 @@ export const AuthProvider = ({ children }) => {
 
     getSession();
 
+    // check for auth chhanges (user login/logout)
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setUser(session?.user || null);
